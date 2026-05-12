@@ -1,0 +1,242 @@
+{
+  "timestamp": "2026-05-12 13:45:52",
+  "a_share": {
+    "latest_date": "2026-05-11",
+    "total_stocks": 5516,
+    "latest_count": 5201,
+    "coverage_pct": 94.3,
+    "trend": [
+      {
+        "date": "2026-04-23",
+        "count": 5064
+      },
+      {
+        "date": "2026-04-24",
+        "count": 5063
+      },
+      {
+        "date": "2026-04-27",
+        "count": 5061
+      },
+      {
+        "date": "2026-04-28",
+        "count": 5054
+      },
+      {
+        "date": "2026-04-29",
+        "count": 5028
+      },
+      {
+        "date": "2026-04-30",
+        "count": 5026
+      },
+      {
+        "date": "2026-05-06",
+        "count": 5055
+      },
+      {
+        "date": "2026-05-07",
+        "count": 5057
+      },
+      {
+        "date": "2026-05-08",
+        "count": 5055
+      },
+      {
+        "date": "2026-05-11",
+        "count": 5201
+      }
+    ],
+    "indicators": {
+      "MA5": {
+        "ok": 5178,
+        "total": 5201,
+        "pct": 99.6
+      },
+      "KDJ": {
+        "ok": 5178,
+        "total": 5201,
+        "pct": 99.6
+      },
+      "MACD": {
+        "ok": 5178,
+        "total": 5201,
+        "pct": 99.6
+      },
+      "DMI": {
+        "ok": 5178,
+        "total": 5201,
+        "pct": 99.6
+      },
+      "BOLL": {
+        "ok": 5178,
+        "total": 5201,
+        "pct": 99.6
+      }
+    },
+    "recent_failures": [],
+    "sector_latest": "2026-05-11"
+  },
+  "hk": {
+    "latest_date": "2026-05-11",
+    "total_stocks": 2727,
+    "latest_count": 2113,
+    "coverage_pct": 77.5,
+    "trend": [
+      {
+        "date": "2026-04-27",
+        "count": 2439
+      },
+      {
+        "date": "2026-04-28",
+        "count": 2433
+      },
+      {
+        "date": "2026-04-29",
+        "count": 2416
+      },
+      {
+        "date": "2026-04-30",
+        "count": 2427
+      },
+      {
+        "date": "2026-05-04",
+        "count": 2457
+      },
+      {
+        "date": "2026-05-05",
+        "count": 2597
+      },
+      {
+        "date": "2026-05-06",
+        "count": 2108
+      },
+      {
+        "date": "2026-05-07",
+        "count": 2108
+      },
+      {
+        "date": "2026-05-08",
+        "count": 2596
+      },
+      {
+        "date": "2026-05-11",
+        "count": 2113
+      }
+    ],
+    "indicators": {
+      "MA5": {
+        "ok": 2113,
+        "total": 2113,
+        "pct": 100.0
+      },
+      "KDJ": {
+        "ok": 2113,
+        "total": 2113,
+        "pct": 100.0
+      },
+      "MACD": {
+        "ok": 2113,
+        "total": 2113,
+        "pct": 100.0
+      },
+      "BOLL": {
+        "ok": 2111,
+        "total": 2113,
+        "pct": 99.9
+      },
+      "涨跌幅": {
+        "ok": 2113,
+        "total": 2113,
+        "pct": 100.0
+      }
+    },
+    "sector_latest": "2026-05-11",
+    "sector_count": 31,
+    "index_latest": "2026-05-06",
+    "recent_failures": [
+      {
+        "stock": "09992.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:56"
+      },
+      {
+        "stock": "09993.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:56"
+      },
+      {
+        "stock": "09995.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:56"
+      },
+      {
+        "stock": "09996.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:56"
+      },
+      {
+        "stock": "09998.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:56"
+      },
+      {
+        "stock": "09999.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:56"
+      },
+      {
+        "stock": "09985.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:55"
+      },
+      {
+        "stock": "09986.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:55"
+      },
+      {
+        "stock": "09987.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:55"
+      },
+      {
+        "stock": "09988.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-11 08:27:55"
+      }
+    ]
+  },
+  "after_market_jobs": {
+    "a_share": {
+      "date": "2026-05-11",
+      "status": "ok",
+      "log_file": "after_market_20260511.log",
+      "size_kb": 8.4
+    },
+    "hk": {
+      "date": "2026-05-11",
+      "status": "error",
+      "log_file": "hk_sync_20260511_162006.log",
+      "size_kb": 1.5
+    }
+  },
+  "alerts": [
+    {
+      "level": "error",
+      "message": "港股覆盖率仅77.5%(2113/2727)"
+    },
+    {
+      "level": "error",
+      "message": "港股同步任务异常(2026-05-11)"
+    },
+    {
+      "level": "warning",
+      "message": "A股覆盖率仅94.3%(5201/5516)"
+    },
+    {
+      "level": "info",
+      "message": "指数数据滞后(2026-05-06)"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 数据质量看板 · 股票系统</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f1923;color:#e0e6ed;min-height:100vh}
+.header{background:linear-gradient(135deg,#1a2a3a,#0f1923);padding:16px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a3a4a}
+.header h1{font-size:20px;font-weight:600}.header h1 span{color:#4fc3f7}
+.header .meta{font-size:12px;color:#8899aa;display:flex;align-items:center;gap:12px}
+.header .meta button{background:#1e88e5;color:#fff;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:12px}
+.header .meta button:hover{background:#1565c0}
+.alerts{padding:10px 24px;display:flex;flex-wrap:wrap;gap:8px;min-height:16px}
+.alert-item{padding:5px 12px;border-radius:4px;font-size:12px;display:flex;align-items:center;gap:5px}
+.alert-item.critical{background:#b71c1c33;border:1px solid #b71c1c;color:#ff8a80}
+.alert-item.error{background:#e6510033;border:1px solid #e65100;color:#ffab91}
+.alert-item.warning{background:#f57f1733;border:1px solid #f57f17;color:#fff59d}
+.alert-item.info{background:#0277bd33;border:1px solid #0277bd;color:#80d8ff}
+.container{padding:16px 24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:#1a2a3a;border-radius:10px;border:1px solid #2a3a4a;overflow:hidden}
+.card-header{padding:12px 16px;border-bottom:1px solid #2a3a4a;display:flex;justify-content:space-between;align-items:center}
+.card-header h2{font-size:14px;font-weight:500}
+.badge{font-size:10px;padding:2px 8px;border-radius:10px}
+.badge.ok{background:#2e7d3233;color:#81c784;border:1px solid #2e7d32}
+.badge.warn{background:#f57f1733;color:#fff59d;border:1px solid #f57f17}
+.badge.error{background:#b71c1c33;color:#ff8a80;border:1px solid #b71c1c}
+.card-body{padding:14px 16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{text-align:center;padding:8px;background:#0f1923;border-radius:6px}
+.stat .val{font-size:22px;font-weight:700}.stat .lbl{font-size:11px;color:#8899aa;margin-top:2px}
+.val.blue{color:#4fc3f7}.val.green{color:#81c784}.val.red{color:#ff8a80}.val.yellow{color:#fff59d}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;color:#8899aa;padding:5px 0;border-bottom:1px solid #2a3a4a}
+td{padding:7px 0;font-size:12px;border-bottom:1px solid #1a2530}
+.pct{font-weight:600}.pct.good{color:#81c784}.pct.warn{color:#fff59d}.pct.bad{color:#ff8a80}
+.pbar{height:5px;background:#0f1923;border-radius:3px;overflow:hidden}
+.pbar .fill{height:100%;border-radius:3px}.fill.green{background:#4caf50}.fill.yellow{background:#ffc107}.fill.red{background:#f44336}
+.chart{width:100%;height:180px}
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.job{padding:10px;background:#0f1923;border-radius:6px}
+.job .jt{font-size:12px;font-weight:500;margin-bottom:4px}
+.job .jd{font-size:11px;color:#8899aa}
+.fail-list{max-height:100px;overflow-y:auto}
+.fail-item{font-size:11px;padding:3px 0;color:#8899aa;border-bottom:1px solid #1a2530}
+.fail-item .s{color:#ff8a80;font-weight:500}
+@media(max-width:800px){.container{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>📊 <span>数据质量看板</span></h1>
+  <div class="meta"><span id="ts">加载中</span><button onclick="load()">🔄</button></div>
+</div>
+<div id="alerts" class="alerts"></div>
+<div class="container">
+  <div class="card">
+    <div class="card-header"><h2>🇨🇳 A股市场</h2><span id="ab" class="badge ok">--</span></div>
+    <div class="card-body">
+      <div class="stats">
+        <div class="stat"><div id="ad" class="val blue">--</div><div class="lbl">最新交易日</div></div>
+        <div class="stat"><div id="ac" class="val green">--</div><div class="lbl">当日数据量</div></div>
+        <div class="stat"><div id="ap" class="val green">--</div><div class="lbl">覆盖率</div></div>
+      </div>
+      <table id="ai"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:35%"></th></tr></table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>🇭🇰 港股市场</h2><span id="hb" class="badge ok">--</span></div>
+    <div class="card-body">
+      <div class="stats">
+        <div class="stat"><div id="hd" class="val blue">--</div><div class="lbl">最新交易日</div></div>
+        <div class="stat"><div id="hc" class="val green">--</div><div class="lbl">当日数据量</div></div>
+        <div class="stat"><div id="hp" class="val green">--</div><div class="lbl">覆盖率</div></div>
+      </div>
+      <table id="hi"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:35%"></th></tr></table>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>📈 A股日线趋势</h2></div>
+    <div class="card-body"><div id="ac2" class="chart"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>📈 港股日线趋势</h2></div>
+    <div class="card-body"><div id="hc2" class="chart"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>🇭🇰 板块 & 指数</h2></div>
+    <div class="card-body">
+      <div class="stats">
+        <div class="stat"><div id="hsd" class="val blue">--</div><div class="lbl">板块最新</div></div>
+        <div class="stat"><div id="hsc" class="val green">--</div><div class="lbl">板块数</div></div>
+        <div class="stat"><div id="hid" class="val blue">--</div><div class="lbl">指数最新</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>⚙️ 盘后任务</h2></div>
+    <div class="card-body"><div class="jobs" id="jobs"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>⚠️ A股最近失败</h2></div>
+    <div class="card-body"><div id="af" class="fail-list"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><h2>⚠️ 港股最近失败</h2></div>
+    <div class="card-body"><div id="hf" class="fail-list"></div></div>
+  </div>
+</div>
+<script>
+const pctCls=p=>p>=95?'good':p>=80?'warn':'bad';
+const barCls=p=>p>=95?'green':p>=80?'yellow':'red';
+const badgeCls=(s)=>{if(s==='ok')return'ok';if(s==='warn')return'warn';return'error'};
+const pctBar=p=>`<div class="pbar"><div class="fill ${barCls(p)}" style="width:${p}%"></div></div>`;
+
+function render(prefix,d){
+  if(!d||d.status==='error'){
+    document.getElementById(prefix+'d').textContent='N/A';
+    document.getElementById(prefix+'c').textContent='--';
+    document.getElementById(prefix+'p').textContent='--';
+    document.getElementById(prefix+'b').textContent='异常';
+    document.getElementById(prefix+'b').className='badge error';
+    return;
+  }
+  document.getElementById(prefix+'d').textContent=d.latest_date||'--';
+  document.getElementById(prefix+'c').textContent=(d.latest_count||0).toLocaleString();
+  const cp=d.coverage_pct||0;
+  document.getElementById(prefix+'p').textContent=cp+'%';
+  const b=document.getElementById(prefix+'b');
+  b.textContent=cp>=95?'正常':cp>=80?'警告':'异常';
+  b.className='badge '+badgeCls(cp>=95?'ok':cp>=80?'warn':'error');
+  const ind=d.indicators||{};
+  const ti=document.getElementById(prefix==='a'?'ai':'hi');
+  Object.keys(ind).forEach(n=>{
+    const v=ind[n];
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${n}</td><td>${v.ok}/${v.total}</td><td class="pct ${pctCls(v.pct)}">${v.pct}%</td><td>${pctBar(v.pct)}</td>`;
+    ti.appendChild(tr);
+  });
+}
+
+function chart(id,data){
+  const c=echarts.init(document.getElementById(id));
+  c.setOption({
+    tooltip:{trigger:'axis'},grid:{left:'8%',right:'4%',bottom:'14%',top:'8%'},
+    xAxis:{type:'category',data:data.map(d=>d.date.slice(5)),axisLine:{lineStyle:{color:'#2a3a4a'}},axisLabel:{color:'#8899aa',fontSize:10}},
+    yAxis:{type:'value',axisLine:{lineStyle:{color:'#2a3a4a'}},axisLabel:{color:'#8899aa',fontSize:10},splitLine:{lineStyle:{color:'#1a2530'}}},
+    series:[{data:data.map(d=>d.count),type:'bar',itemStyle:{color:'#4fc3f7'},barWidth:'60%'}]
+  });
+  window.addEventListener('resize',()=>c.resize());
+}
+
+function update(d){
+  document.getElementById('ts').textContent='更新于 '+d.timestamp;
+  // alerts
+  const ab=document.getElementById('alerts');
+  ab.innerHTML=d.alerts.length?d.alerts.map(a=>`<div class="alert-item ${a.level}">${a.level==='critical'?'🔴':a.level==='error'?'🟠':a.level==='warning'?'🟡':'🔵'} ${a.message}</div>`).join('')
+    :'<div class="alert-item info">✅ 所有数据正常</div>';
+  render('a',d.a_share);render('h',d.hk);
+  chart('ac2',d.a_share?.trend||[]);chart('hc2',d.hk?.trend||[]);
+  const hk=d.hk||{};
+  document.getElementById('hsd').textContent=hk.sector_latest||'--';
+  document.getElementById('hsc').textContent=hk.sector_count||'--';
+  document.getElementById('hid').textContent=hk.index_latest||'--';
+  // jobs
+  const jb=document.getElementById('jobs');
+  const aj=d.after_market_jobs?.a_share,hj=d.after_market_jobs?.hk;
+  jb.innerHTML=`<div class="job"><div class="jt">🇨🇳 A股盘后</div><div class="jd">${aj?`${aj.status==='ok'?'✅':'❌'} ${aj.date} (${aj.log_file})`:'无记录'}</div></div>
+    <div class="job"><div class="jt">🇭🇰 港股同步</div><div class="jd">${hj?`${hj.status==='ok'?'✅':'❌'} ${hj.date} (${hj.log_file})`:'无记录'}</div></div>`;
+  // failures
+  document.getElementById('af').innerHTML=(d.a_share?.recent_failures||[]).length?d.a_share.recent_failures.map(f=>`<div class="fail-item"><span class="s">${f.stock||'N/A'}</span> ${f.error}</div>`).join(''):'<div class="fail-item">✅ 无失败</div>';
+  document.getElementById('hf').innerHTML=(d.hk?.recent_failures||[]).length?d.hk.recent_failures.map(f=>`<div class="fail-item"><span class="s">${f.stock||'N/A'}</span> ${f.error}</div>`).join(''):'<div class="fail-item">✅ 无失败</div>';
+}
+
+async function load(){
+  try{
+    const base=window.location.href.endsWith('.html')?window.location.href.substring(0,window.location.href.lastIndexOf('/')+1):window.location.href;
+    const r=await fetch(base+'dashboard-data.json?t='+Date.now());
+    update(await r.json());
+  }catch(e){document.getElementById('ts').textContent='加载失败: '+e.message}
+}
+load();
+</script>
+</body>
+</html>
