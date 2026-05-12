@@ -9,31 +9,15 @@
 body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f1923;color:#e0e6ed;min-height:100vh}
 .header{background:linear-gradient(135deg,#1a2a3a,#0f1923);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a3a4a}
 .header h1{font-size:16px;font-weight:600}.header h1 span{color:#4fc3f7}
-.header .meta{font-size:11px;color:#8899aa;display:flex;align-items:center;gap:8px}
-.header .meta button{background:#1e88e5;color:#fff;border:none;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px}
-
-/* Running bar - fixed at top */
-.running-bar{background:#1e88e522;border-bottom:1px solid #1e88e5;padding:8px 16px;display:none}
-.running-bar.active{display:flex;align-items:center;gap:10px}
-.running-bar .spinner{width:14px;height:14px;border:2px solid #4fc3f7;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
-@keyframes spin{to{transform:rotate(360deg)}}
-.running-bar .text{flex:1;font-size:12px;color:#4fc3f7}
-.running-bar .cancel{background:transparent;border:1px solid #4fc3f7;color:#4fc3f7;padding:2px 8px;border-radius:3px;cursor:pointer;font-size:11px}
-
-/* Alerts */
+.header .meta{font-size:11px;color:#8899aa}
 .alerts{padding:8px 16px;display:flex;flex-direction:column;gap:4px}
-.alert{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:12px;animation:fadeIn .3s}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+.alert{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:12px}
 .alert.error{background:#b71c1c18;border:1px solid #b71c1c44;color:#ff8a80}
 .alert.warning{background:#f57f1718;border:1px solid #f57f1744;color:#fff59d}
 .alert.info{background:#0277bd18;border:1px solid #0277bd44;color:#80d8ff}
-.alert .icon{flex-shrink:0}
-.alert .msg{flex:1;line-height:1.4}
-.alert .fix-btn{background:transparent;border:1px solid currentColor;padding:2px 10px;border-radius:3px;cursor:pointer;font-size:11px;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.alert .icon{flex-shrink:0}.alert .msg{flex:1;line-height:1.4}
+.alert .fix-btn{background:transparent;border:1px solid currentColor;padding:2px 10px;border-radius:3px;cursor:pointer;font-size:11px;white-space:nowrap;flex-shrink:0}
 .alert .fix-btn:hover{background:currentColor;color:#0f1923}
-.alert .fix-btn:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
-
-/* Cards */
 .container{padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .card{background:#1a2a3a;border-radius:8px;border:1px solid #2a3a4a;overflow:hidden}
 .card-header{padding:8px 12px;border-bottom:1px solid #2a3a4a;display:flex;justify-content:space-between;align-items:center}
@@ -52,383 +36,172 @@ th{text-align:left;font-size:9px;color:#8899aa;padding:3px 0;border-bottom:1px s
 td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
 .pct{font-weight:600}.pct.good{color:#81c784}.pct.warn{color:#fff59d}.pct.bad{color:#ff8a80}
 .pbar{height:3px;background:#0f1923;border-radius:2px;overflow:hidden}
-.pbar .fill{height:100%;border-radius:2px;transition:width .3s}.fill.green{background:#4caf50}.fill.yellow{background:#ffc107}.fill.red{background:#f44336}
-
-/* Fix panel */
+.pbar .fill{height:100%;border-radius:2px}.fill.green{background:#4caf50}.fill.yellow{background:#ffc107}.fill.red{background:#f44336}
+.chart{display:flex;align-items:flex-end;gap:3px;height:100px;padding:0 4px}
+.bar{flex:1;border-radius:3px 3px 0 0;position:relative;min-width:8px;cursor:pointer}
+.bar.green{background:linear-gradient(0deg,#2e7d32,#4caf50)}
+.bar.blue{background:linear-gradient(0deg,#0277bd,#4fc3f7)}
+.bar span{position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:8px;color:#8899aa;white-space:nowrap}
+.bar:hover::after{content:attr(title);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:#1a2a3a;border:1px solid #2a3a4a;padding:2px 6px;border-radius:3px;font-size:9px;white-space:nowrap;z-index:10;color:#e0e6ed}
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.job{padding:8px;background:#0f1923;border-radius:6px}
+.job .jt{font-size:11px;font-weight:500;margin-bottom:3px}.job .jd{font-size:10px;color:#8899aa}
+.fail-list{max-height:60px;overflow-y:auto}
+.fail-item{font-size:9px;padding:2px 0;color:#8899aa;border-bottom:1px solid #1a2530}.fail-item .s{color:#ff8a80;font-weight:500}
 .fix-panel{grid-column:1/-1;background:#1a2a3a;border-radius:8px;border:1px solid #2a3a4a}
-.fix-header{padding:8px 12px;border-bottom:1px solid #2a3a4a;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
-.fix-header h2{font-size:13px;font-weight:500}
-.fix-body{padding:10px 12px;display:flex;gap:10px;flex-wrap:wrap}
+.fix-header{padding:8px 12px;border-bottom:1px solid #2a3a4a;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.fix-header h2{font-size:13px;font-weight:500}.fix-header .arrow{color:#8899aa}
+.fix-body{padding:10px 12px;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
 .fix-body.hidden{display:none}
-.fix-card{flex:1;min-width:200px;background:#0f1923;border-radius:6px;padding:10px;border:1px solid #2a3a4a}
-.fix-card .title{font-size:12px;font-weight:600;margin-bottom:3px}
-.fix-card .desc{font-size:10px;color:#8899aa;margin-bottom:8px;line-height:1.4}
-.fix-card .status{font-size:10px;padding:4px 6px;border-radius:3px;margin-top:4px;display:none}
-.fix-card .status.idle{display:block;color:#8899aa}
-.fix-card .status.running{display:block;color:#4fc3f7;background:#1e88e515}
-.fix-card .status.done{display:block;color:#81c784;background:#2e7d3215}
-.fix-card .status.error{display:block;color:#ff8a80;background:#b71c1c15}
-.fix-card .btn{background:#1e88e5;color:#fff;border:none;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;width:100%;transition:all .15s}
-.fix-card .btn:hover{background:#1565c0}
-.fix-card .btn:disabled{opacity:.4;cursor:not-allowed}
-.fix-card .btn.busy{animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-
-/* Toast */
-.toast{position:fixed;bottom:16px;right:16px;background:#1a2a3a;border-radius:6px;padding:8px 14px;font-size:11px;z-index:999;box-shadow:0 4px 16px rgba(0,0,0,.4);animation:slideUp .2s ease;max-width:360px}
+.fix-card{background:#0f1923;border-radius:6px;padding:10px;border:1px solid #2a3a4a}
+.fix-card .fc-title{font-size:12px;font-weight:600;margin-bottom:3px}
+.fix-card .fc-desc{font-size:10px;color:#8899aa;margin-bottom:8px;line-height:1.4}
+.fix-card .fc-btn{background:#1e88e5;color:#fff;border:none;padding:4px 10px;border-radius:4px;font-size:10px;cursor:pointer;width:100%}
+.fix-card .fc-btn:hover{background:#1565c0}
+.footer{padding:12px 16px;text-align:center;font-size:10px;color:#8899aa}
+.toast{position:fixed;bottom:16px;right:16px;background:#1a2a3a;border:1px solid #2e7d32;border-radius:6px;padding:8px 14px;font-size:11px;z-index:999;color:#81c784;animation:slideUp .2s ease}
 @keyframes slideUp{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
-.toast.ok{border:1px solid #2e7d32;color:#81c784}
-.toast.err{border:1px solid #b71c1c;color:#ff8a80}
-.toast.info{border:1px solid #1e88e5;color:#4fc3f7}
-
-/* Progress bar for running task */
-.progress-track{height:4px;background:#0f1923;border-radius:2px;margin-top:6px;overflow:hidden;display:none}
-.progress-track.active{display:block}
-.progress-fill{height:100%;background:linear-gradient(90deg,#1e88e5,#4fc3f7);border-radius:2px;transition:width .5s}
-
 @media(max-width:800px){.container{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>📊 <span>数据质量看板</span></h1>
-  <div class="meta"><span id="ts">--</span><button onclick="load()">🔄 刷新</button></div>
+    <h1>📊 <span>数据质量看板</span></h1>
+    <div class="meta">更新于 2026-05-12 18:08:23</div>
 </div>
-
-<div id="runningBar" class="running-bar">
-  <div class="spinner"></div>
-  <span class="text" id="runningText">--</span>
+<div class="alerts">
+<div class="alert error"><span class="icon">🔴</span><span class="msg">港股覆盖率仅24.9%(679/2727)</span><button class="fix-btn" onclick="copyFixCmd('hk-missing')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股同步任务异常(2026-05-12)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">A股覆盖率仅94.3%(5201/5516)</span><button class="fix-btn" onclick="copyFixCmd('a-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">板块数据滞后(个股:2026-05-12,板块:2026-05-11)</span><button class="fix-btn" onclick="copyFixCmd('hk-sector')">修复</button></div><div class="alert info"><span class="icon">🔵</span><span class="msg">指数数据滞后(2026-05-06)</span><button class="fix-btn" onclick="copyFixCmd('hk-index')">修复</button></div>
 </div>
-
-<div id="alerts" class="alerts"></div>
-
 <div class="container">
-  <!-- Fix panel -->
-  <div class="fix-panel">
-    <div class="fix-header" onclick="toggleFixPanel()">
-      <h2>🔧 修复操作</h2>
-      <span id="fixArrow">▶</span>
+    <div class="fix-panel">
+        <div class="fix-header" onclick="toggleFix()">
+            <h2>🔧 自助修复</h2>
+            <span class="arrow" id="fArrow">▶</span>
+        </div>
+        <div class="fix-body hidden" id="fBody">
+<div class="fix-card">
+            <div class="fc-title">🔄 A股同步</div>
+            <div class="fc-desc">运行盘后任务补全数据</div>
+            <button class="fc-btn" onclick="copyFixCmd('a-sync')">📋 复制命令</button>
+            <div class="fc-cmd" id="cmd-a-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix a-sync</div>
+        </div><div class="fix-card">
+            <div class="fc-title">📥 港股缺失补全</div>
+            <div class="fc-desc">用腾讯源补全所有缺失港股数据</div>
+            <button class="fc-btn" onclick="copyFixCmd('hk-missing')">📋 复制命令</button>
+            <div class="fc-cmd" id="cmd-hk-missing" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-missing</div>
+        </div><div class="fix-card">
+            <div class="fc-title">🔄 港股同步</div>
+            <div class="fc-desc">用腾讯源补采今日缺失的港股日线</div>
+            <button class="fc-btn" onclick="copyFixCmd('hk-sync')">📋 复制命令</button>
+            <div class="fc-cmd" id="cmd-hk-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-sync</div>
+        </div><div class="fix-card">
+            <div class="fc-title">🏢 港股板块聚合</div>
+            <div class="fc-desc">从个股日线重新聚合板块</div>
+            <button class="fc-btn" onclick="copyFixCmd('hk-sector')">📋 复制命令</button>
+            <div class="fc-cmd" id="cmd-hk-sector" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-sector</div>
+        </div><div class="fix-card">
+            <div class="fc-title">📈 港股指数更新</div>
+            <div class="fc-desc">重新拉取港股指数数据</div>
+            <button class="fc-btn" onclick="copyFixCmd('hk-index')">📋 复制命令</button>
+            <div class="fc-cmd" id="cmd-hk-index" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-index</div>
+        </div>
+        </div>
     </div>
-    <div class="fix-body" id="fixBody">
-      <div class="fix-card" id="fix-hk-sync">
-        <div class="title">🔄 港股同步</div>
-        <div class="desc">用腾讯源补采今日缺失的港股日线，并自动补算指标</div>
-        <button class="btn" onclick="runFix('hk-sync')">执行</button>
-        <div class="status idle">等待执行</div>
-        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
-      </div>
-      <div class="fix-card" id="fix-hk-indicators">
-        <div class="title">📊 港股指标补算</div>
-        <div class="desc">重新计算港股全部技术指标（MA/KDJ/MACD/BOLL）</div>
-        <button class="btn" onclick="runFix('hk-indicators')">执行</button>
-        <div class="status idle">等待执行</div>
-        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
-      </div>
-      <div class="fix-card" id="fix-a-sync">
-        <div class="title">🔄 A股同步</div>
-        <div class="desc">执行盘后任务，同步A股日线并计算指标</div>
-        <button class="btn" onclick="runFix('a-sync')">执行</button>
-        <div class="status idle">等待执行</div>
-        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
-      </div>
-      <div class="fix-card" id="fix-fix-all" style="border-color:#1e88e5">
-        <div class="title">🚀 一键修复</div>
-        <div class="desc">港股同步 → 指标补算 → A股同步，全自动执行</div>
-        <button class="btn" onclick="runFix('fix-all')">执行</button>
-        <div class="status idle">等待执行</div>
-        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
-      </div>
-    </div>
-  </div>
 
-  <!-- A股 -->
-  <div class="card">
-    <div class="card-header"><h2>🇨🇳 A股</h2><span id="ab" class="badge ok">--</span></div>
-    <div class="card-body">
-      <div class="stats">
-        <div class="stat"><div id="ad" class="val blue">--</div><div class="lbl">最新日期</div></div>
-        <div class="stat"><div id="ac" class="val green">--</div><div class="lbl">数据量</div></div>
-        <div class="stat"><div id="ap" class="val green">--</div><div class="lbl">覆盖率</div></div>
-      </div>
-      <table id="at"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:25%"></th></tr></table>
+    <div class="card">
+        <div class="card-header"><h2>🇨🇳 A股</h2><span class="badge warn">警告</span></div>
+        <div class="card-body">
+            <div class="stats">
+                <div class="stat"><div class="val blue">2026-05-12</div><div class="lbl">最新日期</div></div>
+                <div class="stat"><div class="val green">5,201</div><div class="lbl">数据量</div></div>
+                <div class="stat"><div class="val green">94.3%</div><div class="lbl">覆盖率</div></div>
+            </div>
+            <table>
+                <tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:25%"></th></tr>
+<tr><td>MA5</td><td>5178/5201</td><td class="pct good">99.6%</td><td><div class="pbar"><div class="fill green" style="width:99.6%"></div></div></td></tr><tr><td>KDJ</td><td>5178/5201</td><td class="pct good">99.6%</td><td><div class="pbar"><div class="fill green" style="width:99.6%"></div></div></td></tr><tr><td>MACD</td><td>5178/5201</td><td class="pct good">99.6%</td><td><div class="pbar"><div class="fill green" style="width:99.6%"></div></div></td></tr><tr><td>DMI</td><td>5178/5201</td><td class="pct good">99.6%</td><td><div class="pbar"><div class="fill green" style="width:99.6%"></div></div></td></tr><tr><td>BOLL</td><td>5178/5201</td><td class="pct good">99.6%</td><td><div class="pbar"><div class="fill green" style="width:99.6%"></div></div></td></tr>
+            </table>
+        </div>
     </div>
-  </div>
 
-  <!-- 港股 -->
-  <div class="card">
-    <div class="card-header"><h2>🇭🇰 港股</h2><span id="hb" class="badge ok">--</span></div>
-    <div class="card-body">
-      <div class="stats">
-        <div class="stat"><div id="hd" class="val blue">--</div><div class="lbl">最新日期</div></div>
-        <div class="stat"><div id="hc" class="val green">--</div><div class="lbl">数据量</div></div>
-        <div class="stat"><div id="hp" class="val green">--</div><div class="lbl">覆盖率</div></div>
-      </div>
-      <table id="ht"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:25%"></th></tr></table>
+    <div class="card">
+        <div class="card-header"><h2>🇭🇰 港股</h2><span class="badge error">异常</span></div>
+        <div class="card-body">
+            <div class="stats">
+                <div class="stat"><div class="val blue">2026-05-12</div><div class="lbl">最新日期</div></div>
+                <div class="stat"><div class="val green">679</div><div class="lbl">数据量</div></div>
+                <div class="stat"><div class="val green">24.9%</div><div class="lbl">覆盖率</div></div>
+            </div>
+            <table>
+                <tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:25%"></th></tr>
+<tr><td>MA5</td><td>679/679</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr><tr><td>KDJ</td><td>679/679</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr><tr><td>MACD</td><td>679/679</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr><tr><td>BOLL</td><td>675/679</td><td class="pct good">99.4%</td><td><div class="pbar"><div class="fill green" style="width:99.4%"></div></div></td></tr><tr><td>涨跌幅</td><td>679/679</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr>
+            </table>
+        </div>
     </div>
-  </div>
 
-  <!-- A股趋势 -->
-  <div class="card"><div class="card-header"><h2>📈 A股趋势</h2></div><div class="card-body"><canvas id="ac2" style="width:100%;height:120px"></canvas></div></div>
-  <!-- 港股趋势 -->
-  <div class="card"><div class="card-header"><h2>📈 港股趋势</h2></div><div class="card-body"><canvas id="hc2" style="width:100%;height:120px"></canvas></div></div>
+    <div class="card">
+        <div class="card-header"><h2>📈 A股趋势</h2></div>
+        <div class="card-body"><div class="chart"><div class="bars"><div class="bar green" style="height:77px" title="2026-04-24: 5063"><span>04-24</span></div><div class="bar green" style="height:77px" title="2026-04-27: 5061"><span>04-27</span></div><div class="bar green" style="height:77px" title="2026-04-28: 5054"><span>04-28</span></div><div class="bar green" style="height:77px" title="2026-04-29: 5028"><span>04-29</span></div><div class="bar green" style="height:77px" title="2026-04-30: 5026"><span>04-30</span></div><div class="bar green" style="height:77px" title="2026-05-06: 5055"><span>05-06</span></div><div class="bar green" style="height:77px" title="2026-05-07: 5057"><span>05-07</span></div><div class="bar green" style="height:77px" title="2026-05-08: 5055"><span>05-08</span></div><div class="bar green" style="height:80px" title="2026-05-11: 5201"><span>05-11</span></div><div class="bar green" style="height:80px" title="2026-05-12: 5201"><span>05-12</span></div></div></div></div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2>📈 港股趋势</h2></div>
+        <div class="card-body"><div class="chart"><div class="bars"><div class="bar blue" style="height:74px" title="2026-04-28: 2433"><span>04-28</span></div><div class="bar blue" style="height:74px" title="2026-04-29: 2416"><span>04-29</span></div><div class="bar blue" style="height:74px" title="2026-04-30: 2427"><span>04-30</span></div><div class="bar blue" style="height:75px" title="2026-05-04: 2457"><span>05-04</span></div><div class="bar blue" style="height:80px" title="2026-05-05: 2597"><span>05-05</span></div><div class="bar blue" style="height:64px" title="2026-05-06: 2108"><span>05-06</span></div><div class="bar blue" style="height:64px" title="2026-05-07: 2108"><span>05-07</span></div><div class="bar blue" style="height:79px" title="2026-05-08: 2596"><span>05-08</span></div><div class="bar blue" style="height:65px" title="2026-05-11: 2113"><span>05-11</span></div><div class="bar blue" style="height:20px" title="2026-05-12: 679"><span>05-12</span></div></div></div></div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2>🇭🇰 板块 & 指数</h2></div>
+        <div class="card-body">
+            <div class="stats">
+                <div class="stat"><div class="val blue">2026-05-11</div><div class="lbl">板块最新</div></div>
+                <div class="stat"><div class="val green">31</div><div class="lbl">板块数</div></div>
+                <div class="stat"><div class="val blue">2026-05-06</div><div class="lbl">指数最新</div></div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2>⚙️ 盘后任务</h2></div>
+        <div class="card-body"><div class="jobs">
+    <div class="job"><div class="jt">🇨🇳 A股盘后</div><div class="jd">✅ 2026-05-12</div></div>
+    <div class="job"><div class="jt">🇭🇰 港股同步</div><div class="jd">❌ 2026-05-12</div></div></div></div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2>⚠️ A股最近失败</h2></div>
+        <div class="card-body">
+            <div class="fail-list">
+<div class="fail-item">✅ 无失败</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header"><h2>⚠️ 港股最近失败</h2></div>
+        <div class="card-body">
+            <div class="fail-list">
+<div class="fail-item"><span class="s">09995.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09996.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09991.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09986.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09988.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09981.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09969.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09973.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09963.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+<div class="fail-item"><span class="s">09966.HK</span> 超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit</div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="footer">数据质量看板 · 最后更新: 2026-05-12 18:08:23 · 点击修复按钮复制命令到终端执行</div>
 
 <script>
-const FIX_NAMES = {
-  'hk-sync': '港股数据同步',
-  'hk-indicators': '港股指标补算',
-  'a-sync': 'A股数据同步',
-  'fix-all': '一键修复',
-};
-
-let polling = null;
-let fixPanelOpen = false;
-let currentTask = null;
-
-function toggleFixPanel() {
-  fixPanelOpen = !fixPanelOpen;
-  document.getElementById('fixBody').classList.toggle('hidden', !fixPanelOpen);
-  document.getElementById('fixArrow').textContent = fixPanelOpen ? '▼' : '▶';
+function toggleFix(){
+    const b=document.getElementById('fBody'),a=document.getElementById('fArrow');
+    b.classList.toggle('hidden');a.textContent=b.classList.contains('hidden')?'▶':'▼';
 }
-
-function toast(msg, type) {
-  const t = document.createElement('div');
-  t.className = 'toast ' + (type || 'info');
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 5000);
+function copyFixCmd(action){
+    const cmds={'hk-sync':'cd stock_project && python3 scripts/fix_data.py --fix hk-sync','hk-missing':'cd stock_project && python3 scripts/fix_data.py --fix all-missing','hk-indicators':'cd stock_project && python3 scripts/fix_data.py --fix indicators','hk-sector':'cd stock_project && python3 scripts/fix_data.py --fix hk-sector','hk-index':'cd stock_project && python3 scripts/fix_data.py --fix hk-index','a-sync':'cd stock_project && python3 scripts/fix_data.py --fix a-sync'};
+    const cmd=cmds[action]||`cd stock_project && python3 scripts/fix_data.py --fix ${action}`;
+    navigator.clipboard.writeText(cmd).then(()=>{
+        const t=document.createElement('div');t.className='toast';t.textContent='📋 命令已复制: '+cmd;document.body.appendChild(t);setTimeout(()=>t.remove(),3000);
+    });
 }
-
-// 渲染告警
-function renderAlerts(alerts) {
-  const bar = document.getElementById('alerts');
-  if (!alerts || alerts.length === 0) {
-    bar.innerHTML = '<div class="alert info"><span class="icon">✅</span><span class="msg">所有数据正常</span></div>';
-    return;
-  }
-  bar.innerHTML = alerts.map(a => {
-    const icon = a.level === 'error' ? '🔴' : a.level === 'warning' ? '🟡' : '🔵';
-    const fixClass = a.fix ? '' : ' style="display:none"';
-    return `<div class="alert ${a.level}">
-      <span class="icon">${icon}</span>
-      <span class="msg">${a.message}</span>
-      <button class="fix-btn"${fixClass} data-fix="${a.fix||''}" onclick="runFix('${a.fix}')">修复</button>
-    </div>`;
-  }).join('');
-}
-
-// 渲染数据卡片
-function renderMarket(prefix, d) {
-  if (!d || d.status === 'error') {
-    document.getElementById(prefix+'d').textContent='N/A';
-    document.getElementById(prefix+'c').textContent='--';
-    document.getElementById(prefix+'p').textContent='--';
-    const b=document.getElementById(prefix+'b'); b.textContent='异常'; b.className='badge error';
-    return;
-  }
-  document.getElementById(prefix+'d').textContent=d.latest_date||'--';
-  document.getElementById(prefix+'c').textContent=(d.latest_count||0).toLocaleString();
-  const cp=d.coverage_pct||0;
-  document.getElementById(prefix+'p').textContent=cp+'%';
-  const b=document.getElementById(prefix+'b');
-  b.textContent=cp>=95?'正常':cp>=80?'警告':'异常';
-  b.className='badge '+(cp>=95?'ok':cp>=80?'warn':'error');
-
-  const ti=document.getElementById(prefix==='a'?'at':'ht');
-  // 清空旧行（保留表头）
-  while(ti.rows.length>1) ti.deleteRow(-1);
-  const ind=d.indicators||{};
-  Object.keys(ind).forEach(n=>{
-    const v=ind[n];
-    const pct=v.pct||0;
-    const barColor=pct>=95?'green':pct>=80?'yellow':'red';
-    const pctColor=pct>=95?'good':pct>=80?'warn':'bad';
-    const tr=ti.insertRow();
-    tr.innerHTML=`<td>${n}</td><td>${v.ok}/${v.total}</td><td class="pct ${pctColor}">${pct}%</td>
-      <td><div class="pbar"><div class="fill ${barColor}" style="width:${pct}%"></div></div></td>`;
-  });
-}
-
-// 简易趋势图（用 Canvas 画柱状图，不依赖外部库）
-function drawBarChart(canvasId, data, color) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas || !data.length) return;
-  const ctx = canvas.getContext('2d');
-  const dpr = window.devicePixelRatio || 1;
-  const rect = canvas.getBoundingClientRect();
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-  ctx.scale(dpr, dpr);
-
-  const w = rect.width, h = rect.height;
-  const padding = {top: 8, right: 8, bottom: 20, left: 36};
-  const chartW = w - padding.left - padding.right;
-  const chartH = h - padding.top - padding.bottom;
-
-  ctx.clearRect(0, 0, w, h);
-
-  const maxVal = Math.max(...data.map(d => d.count));
-  const barW = Math.max(4, chartW / data.length - 2);
-
-  // Y轴标签
-  ctx.fillStyle = '#8899aa';
-  ctx.font = '9px sans-serif';
-  ctx.textAlign = 'right';
-  ctx.fillText(maxVal.toLocaleString(), padding.left - 2, padding.top + 8);
-  ctx.fillText(Math.round(maxVal/2).toLocaleString(), padding.left - 2, padding.top + chartH/2 + 4);
-  ctx.fillText('0', padding.left - 2, h - padding.bottom + 3);
-
-  // 柱状图
-  data.forEach((d, i) => {
-    const x = padding.left + (chartW / data.length) * i + (chartW / data.length - barW) / 2;
-    const barH = (d.count / maxVal) * chartH;
-    const y = padding.top + chartH - barH;
-
-    ctx.fillStyle = color;
-    ctx.fillRect(x, y, barW, barH);
-
-    // X轴标签
-    ctx.fillStyle = '#8899aa';
-    ctx.textAlign = 'center';
-    ctx.font = '8px sans-serif';
-    ctx.fillText(d.date.slice(5), x + barW/2, h - padding.bottom + 12);
-  });
-}
-
-// 运行修复
-async function runFix(action) {
-  const name = FIX_NAMES[action] || action;
-  const btn = document.querySelector(`#fix-${action} .btn`);
-
-  // 先尝试提交
-  try {
-    const resp = await fetch('/api/fix/' + action, { method: 'POST' });
-    const result = await resp.json();
-
-    if (result.status === 'rejected') {
-      toast('⚠️ ' + result.message, 'err');
-      return;
-    }
-
-    if (result.status === 'queued') {
-      // 更新 UI
-      if (btn) { btn.disabled = true; btn.textContent = '执行中...'; btn.classList.add('busy'); }
-      currentTask = action;
-      updateFixCard(action, 'running', '排队中...');
-      showRunning(name, 0);
-      toast('🚀 ' + name + ' 已提交', 'info');
-
-      // 开始轮询进度
-      startPolling(action);
-    }
-  } catch (e) {
-    toast('❌ 请求失败: ' + e.message, 'err');
-  }
-}
-
-// 轮询任务进度
-function startPolling(taskId) {
-  if (polling) clearInterval(polling);
-  polling = setInterval(async () => {
-    try {
-      const resp = await fetch('/api/task/' + taskId);
-      const t = await resp.json();
-
-      if (!t || t.status === 'not_found') return;
-
-      // 更新进度条
-      updateFixCard(taskId, t.status, t.message, t.progress);
-      showRunning(FIX_NAMES[taskId] || taskId, t.progress);
-
-      if (t.status === 'done') {
-        stopPolling();
-        toast('✅ ' + (t.message || '完成'), 'ok');
-        setTimeout(load, 1500); // 1.5秒后刷新数据
-      } else if (t.status === 'error') {
-        stopPolling();
-        toast('❌ ' + (t.message || '失败'), 'err');
-        // 恢复按钮
-        const btn = document.querySelector(`#fix-${taskId} .btn`);
-        if (btn) { btn.disabled = false; btn.textContent = '执行'; btn.classList.remove('busy'); }
-      }
-    } catch (e) {
-      // 静默失败，继续轮询
-    }
-  }, 1000); // 每秒轮询一次
-}
-
-function stopPolling() {
-  if (polling) { clearInterval(polling); polling = null; }
-  currentTask = null;
-  hideRunning();
-}
-
-function showRunning(name, progress) {
-  const bar = document.getElementById('runningBar');
-  const text = document.getElementById('runningText');
-  bar.className = 'running-bar active';
-  text.textContent = `${name} 执行中... ${progress}%`;
-}
-
-function hideRunning() {
-  document.getElementById('runningBar').className = 'running-bar';
-}
-
-function updateFixCard(action, status, message, progress) {
-  const card = document.getElementById('fix-' + action);
-  if (!card) return;
-  const statusEl = card.querySelector('.status');
-  const track = card.querySelector('.progress-track');
-  const fill = card.querySelector('.progress-fill');
-
-  statusEl.className = 'status ' + status;
-  statusEl.textContent = message;
-
-  if (progress !== undefined) {
-    track.classList.add('active');
-    fill.style.width = Math.min(progress, 100) + '%';
-  }
-
-  if (status === 'running') {
-    const btn = card.querySelector('.btn');
-    if (btn) { btn.disabled = true; btn.textContent = '执行中...'; btn.classList.add('busy'); }
-  } else if (status === 'done' || status === 'error') {
-    const btn = card.querySelector('.btn');
-    if (btn) { btn.disabled = false; btn.textContent = '执行'; btn.classList.remove('busy'); }
-  }
-}
-
-// 加载数据
-async function load() {
-  try {
-    const r = await fetch('/api/data?t=' + Date.now());
-    const d = await r.json();
-    document.getElementById('ts').textContent = '更新于 ' + d.timestamp;
-    renderAlerts(d.alerts);
-    renderMarket('a', d.a_share);
-    renderMarket('h', d.hk);
-    drawBarChart('ac2', d.a_share?.trend || [], '#4caf50');
-    drawBarChart('hc2', d.hk?.trend || [], '#4fc3f7');
-
-    // 同步任务状态到修复面板
-    if (currentTask) {
-      try {
-        const resp = await fetch('/api/task/' + currentTask);
-        const t = await resp.json();
-        if (t && t.status !== 'pending') {
-          updateFixCard(currentTask, t.status, t.message, t.progress);
-        }
-      } catch {}
-    }
-  } catch (e) {
-    document.getElementById('ts').textContent = '加载失败: ' + e.message;
-  }
-}
-
-// 初始加载
-load();
-// 每30秒自动刷新
-setInterval(load, 30000);
 </script>
 </body>
 </html>
