@@ -4,91 +4,87 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>📊 数据质量看板</title>
-<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;background:#0f1923;color:#e0e6ed;min-height:100vh}
-.header{background:linear-gradient(135deg,#1a2a3a,#0f1923);padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a3a4a}
-.header h1{font-size:18px;font-weight:600}.header h1 span{color:#4fc3f7}
-.header .meta{font-size:11px;color:#8899aa;display:flex;align-items:center;gap:10px}
-.header .meta button{background:#1e88e5;color:#fff;border:none;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:11px}
-.header .meta button:hover{background:#1565c0}
+.header{background:linear-gradient(135deg,#1a2a3a,#0f1923);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #2a3a4a}
+.header h1{font-size:16px;font-weight:600}.header h1 span{color:#4fc3f7}
+.header .meta{font-size:11px;color:#8899aa;display:flex;align-items:center;gap:8px}
+.header .meta button{background:#1e88e5;color:#fff;border:none;padding:3px 10px;border-radius:4px;cursor:pointer;font-size:11px}
 
-/* Alerts bar */
-.alerts{padding:8px 20px;display:flex;flex-wrap:wrap;gap:6px;min-height:16px}
-.alert-item{padding:6px 12px;border-radius:6px;font-size:12px;display:flex;align-items:center;gap:6px;border:1px solid;animation:fadeIn .3s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.alert-item.critical{background:#b71c1c22;border-color:#b71c1c;color:#ff8a80}
-.alert-item.error{background:#e6510022;border-color:#e65100;color:#ffab91}
-.alert-item.warning{background:#f57f1722;border-color:#f57f17;color:#fff59d}
-.alert-item.info{background:#0277bd22;border-color:#0277bd;color:#80d8ff}
-.alert-item .msg{flex:1}
-.alert-item .fix-btn{background:transparent;border:1px solid currentColor;padding:2px 8px;border-radius:3px;cursor:pointer;font-size:11px;white-space:nowrap;transition:all .2s}
-.alert-item .fix-btn:hover{background:currentColor;color:#0f1923}
-.alert-item .fix-btn:disabled{opacity:.3;cursor:wait}
-.alert-item .fix-btn.running{animation:pulse 1s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-
-/* Running indicator */
-#runningBar{padding:0 20px;min-height:0;overflow:hidden;transition:all .3s}
-#runningBar.active{padding:6px 20px;min-height:32px}
-.running-item{font-size:11px;color:#4fc3f7;padding:4px 10px;background:#1e88e515;border-radius:4px;display:flex;align-items:center;gap:6px}
-.running-item .spinner{width:12px;height:12px;border:2px solid #4fc3f7;border-top-color:transparent;border-radius:50%;animation:spin 1s linear infinite}
+/* Running bar - fixed at top */
+.running-bar{background:#1e88e522;border-bottom:1px solid #1e88e5;padding:8px 16px;display:none}
+.running-bar.active{display:flex;align-items:center;gap:10px}
+.running-bar .spinner{width:14px;height:14px;border:2px solid #4fc3f7;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
+.running-bar .text{flex:1;font-size:12px;color:#4fc3f7}
+.running-bar .cancel{background:transparent;border:1px solid #4fc3f7;color:#4fc3f7;padding:2px 8px;border-radius:3px;cursor:pointer;font-size:11px}
+
+/* Alerts */
+.alerts{padding:8px 16px;display:flex;flex-direction:column;gap:4px}
+.alert{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:12px;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+.alert.error{background:#b71c1c18;border:1px solid #b71c1c44;color:#ff8a80}
+.alert.warning{background:#f57f1718;border:1px solid #f57f1744;color:#fff59d}
+.alert.info{background:#0277bd18;border:1px solid #0277bd44;color:#80d8ff}
+.alert .icon{flex-shrink:0}
+.alert .msg{flex:1;line-height:1.4}
+.alert .fix-btn{background:transparent;border:1px solid currentColor;padding:2px 10px;border-radius:3px;cursor:pointer;font-size:11px;white-space:nowrap;transition:all .15s;flex-shrink:0}
+.alert .fix-btn:hover{background:currentColor;color:#0f1923}
+.alert .fix-btn:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
 
 /* Cards */
-.container{padding:14px 20px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.card{background:#1a2a3a;border-radius:10px;border:1px solid #2a3a4a;overflow:hidden}
-.card-header{padding:10px 14px;border-bottom:1px solid #2a3a4a;display:flex;justify-content:space-between;align-items:center}
+.container{padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:#1a2a3a;border-radius:8px;border:1px solid #2a3a4a;overflow:hidden}
+.card-header{padding:8px 12px;border-bottom:1px solid #2a3a4a;display:flex;justify-content:space-between;align-items:center}
 .card-header h2{font-size:13px;font-weight:500}
 .badge{font-size:10px;padding:2px 8px;border-radius:10px}
 .badge.ok{background:#2e7d3233;color:#81c784;border:1px solid #2e7d32}
 .badge.warn{background:#f57f1733;color:#fff59d;border:1px solid #f57f17}
 .badge.error{background:#b71c1c33;color:#ff8a80;border:1px solid #b71c1c}
-.card-body{padding:12px 14px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.stat{text-align:center;padding:6px 8px;background:#0f1923;border-radius:6px}
-.stat .val{font-size:20px;font-weight:700}.stat .lbl{font-size:10px;color:#8899aa;margin-top:2px}
+.card-body{padding:10px 12px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.stat{text-align:center;padding:5px;background:#0f1923;border-radius:5px}
+.stat .val{font-size:18px;font-weight:700}.stat .lbl{font-size:9px;color:#8899aa;margin-top:1px}
 .val.blue{color:#4fc3f7}.val.green{color:#81c784}.val.red{color:#ff8a80}.val.yellow{color:#fff59d}
 table{width:100%;border-collapse:collapse}
-th{text-align:left;font-size:10px;color:#8899aa;padding:4px 0;border-bottom:1px solid #2a3a4a}
-td{padding:6px 0;font-size:11px;border-bottom:1px solid #1a2530}
+th{text-align:left;font-size:9px;color:#8899aa;padding:3px 0;border-bottom:1px solid #2a3a4a}
+td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
 .pct{font-weight:600}.pct.good{color:#81c784}.pct.warn{color:#fff59d}.pct.bad{color:#ff8a80}
-.pbar{height:4px;background:#0f1923;border-radius:2px;overflow:hidden}
-.pbar .fill{height:100%;border-radius:2px}.fill.green{background:#4caf50}.fill.yellow{background:#ffc107}.fill.red{background:#f44336}
-.chart{width:100%;height:160px}
-.jobs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.job{padding:8px;background:#0f1923;border-radius:6px}
-.job .jt{font-size:11px;font-weight:500;margin-bottom:3px}
-.job .jd{font-size:10px;color:#8899aa}
-.fail-list{max-height:80px;overflow-y:auto}
-.fail-item{font-size:10px;padding:2px 0;color:#8899aa;border-bottom:1px solid #1a2530}
-.fail-item .s{color:#ff8a80;font-weight:500}
+.pbar{height:3px;background:#0f1923;border-radius:2px;overflow:hidden}
+.pbar .fill{height:100%;border-radius:2px;transition:width .3s}.fill.green{background:#4caf50}.fill.yellow{background:#ffc107}.fill.red{background:#f44336}
 
 /* Fix panel */
-.fix-panel{grid-column:1/-1;background:#1a2a3a;border-radius:10px;border:1px solid #2a3a4a;overflow:hidden}
-.fix-panel .fp-header{padding:10px 14px;border-bottom:1px solid #2a3a4a;display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
-.fix-panel .fp-header h2{font-size:13px;font-weight:500}
-.fix-panel .fp-header .arrow{color:#8899aa;transition:transform .2s}
-.fix-panel .fp-header .arrow.open{transform:rotate(90deg)}
-.fix-panel .fp-body{padding:12px 14px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.fix-panel .fp-body.hidden{display:none}
-.fix-card{background:#0f1923;border-radius:8px;padding:12px;border:1px solid #2a3a4a;cursor:pointer;transition:all .2s}
-.fix-card:hover{border-color:#1e88e5;background:#1a2530}
-.fix-card .fc-title{font-size:12px;font-weight:600;margin-bottom:4px}
-.fix-card .fc-desc{font-size:10px;color:#8899aa;margin-bottom:8px;line-height:1.4}
-.fix-card .fc-btn{background:#1e88e5;color:#fff;border:none;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;width:100%}
-.fix-card .fc-btn:hover{background:#1565c0}
-.fix-card .fc-btn:disabled{opacity:.4;cursor:not-allowed}
-.fix-card .fc-btn.running{animation:pulse 1s infinite}
-.fix-card .fc-result{font-size:10px;margin-top:6px;padding:4px 6px;border-radius:3px;display:none}
-.fix-card .fc-result.ok{display:block;background:#2e7d3233;color:#81c784}
-.fix-card .fc-result.err{display:block;background:#b71c1c33;color:#ff8a80}
+.fix-panel{grid-column:1/-1;background:#1a2a3a;border-radius:8px;border:1px solid #2a3a4a}
+.fix-header{padding:8px 12px;border-bottom:1px solid #2a3a4a;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.fix-header h2{font-size:13px;font-weight:500}
+.fix-body{padding:10px 12px;display:flex;gap:10px;flex-wrap:wrap}
+.fix-body.hidden{display:none}
+.fix-card{flex:1;min-width:200px;background:#0f1923;border-radius:6px;padding:10px;border:1px solid #2a3a4a}
+.fix-card .title{font-size:12px;font-weight:600;margin-bottom:3px}
+.fix-card .desc{font-size:10px;color:#8899aa;margin-bottom:8px;line-height:1.4}
+.fix-card .status{font-size:10px;padding:4px 6px;border-radius:3px;margin-top:4px;display:none}
+.fix-card .status.idle{display:block;color:#8899aa}
+.fix-card .status.running{display:block;color:#4fc3f7;background:#1e88e515}
+.fix-card .status.done{display:block;color:#81c784;background:#2e7d3215}
+.fix-card .status.error{display:block;color:#ff8a80;background:#b71c1c15}
+.fix-card .btn{background:#1e88e5;color:#fff;border:none;padding:4px 12px;border-radius:4px;font-size:11px;cursor:pointer;width:100%;transition:all .15s}
+.fix-card .btn:hover{background:#1565c0}
+.fix-card .btn:disabled{opacity:.4;cursor:not-allowed}
+.fix-card .btn.busy{animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
 
 /* Toast */
-.toast{position:fixed;bottom:20px;right:20px;background:#1a2a3a;border:1px solid #2a3a4a;border-radius:8px;padding:12px 16px;font-size:12px;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.5);animation:slideUp .3s ease}
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.toast.ok{border-color:#2e7d32}.toast.err{border-color:#b71c1c}
+.toast{position:fixed;bottom:16px;right:16px;background:#1a2a3a;border-radius:6px;padding:8px 14px;font-size:11px;z-index:999;box-shadow:0 4px 16px rgba(0,0,0,.4);animation:slideUp .2s ease;max-width:360px}
+@keyframes slideUp{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+.toast.ok{border:1px solid #2e7d32;color:#81c784}
+.toast.err{border:1px solid #b71c1c;color:#ff8a80}
+.toast.info{border:1px solid #1e88e5;color:#4fc3f7}
+
+/* Progress bar for running task */
+.progress-track{height:4px;background:#0f1923;border-radius:2px;margin-top:6px;overflow:hidden;display:none}
+.progress-track.active{display:block}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1e88e5,#4fc3f7);border-radius:2px;transition:width .5s}
 
 @media(max-width:800px){.container{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -96,250 +92,138 @@ td{padding:6px 0;font-size:11px;border-bottom:1px solid #1a2530}
 <body>
 <div class="header">
   <h1>📊 <span>数据质量看板</span></h1>
-  <div class="meta"><span id="ts">加载中</span><button onclick="load()">🔄</button></div>
+  <div class="meta"><span id="ts">--</span><button onclick="load()">🔄 刷新</button></div>
 </div>
+
+<div id="runningBar" class="running-bar">
+  <div class="spinner"></div>
+  <span class="text" id="runningText">--</span>
+</div>
+
 <div id="alerts" class="alerts"></div>
-<div id="runningBar"></div>
+
 <div class="container">
   <!-- Fix panel -->
   <div class="fix-panel">
-    <div class="fp-header" onclick="toggleFixPanel()">
-      <h2>🔧 自助修复</h2>
-      <span class="arrow" id="fpArrow">▶</span>
+    <div class="fix-header" onclick="toggleFixPanel()">
+      <h2>🔧 修复操作</h2>
+      <span id="fixArrow">▶</span>
     </div>
-    <div class="fp-body hidden" id="fpBody"></div>
+    <div class="fix-body" id="fixBody">
+      <div class="fix-card" id="fix-hk-sync">
+        <div class="title">🔄 港股同步</div>
+        <div class="desc">用腾讯源补采今日缺失的港股日线，并自动补算指标</div>
+        <button class="btn" onclick="runFix('hk-sync')">执行</button>
+        <div class="status idle">等待执行</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="fix-card" id="fix-hk-indicators">
+        <div class="title">📊 港股指标补算</div>
+        <div class="desc">重新计算港股全部技术指标（MA/KDJ/MACD/BOLL）</div>
+        <button class="btn" onclick="runFix('hk-indicators')">执行</button>
+        <div class="status idle">等待执行</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="fix-card" id="fix-a-sync">
+        <div class="title">🔄 A股同步</div>
+        <div class="desc">执行盘后任务，同步A股日线并计算指标</div>
+        <button class="btn" onclick="runFix('a-sync')">执行</button>
+        <div class="status idle">等待执行</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+      <div class="fix-card" id="fix-fix-all" style="border-color:#1e88e5">
+        <div class="title">🚀 一键修复</div>
+        <div class="desc">港股同步 → 指标补算 → A股同步，全自动执行</div>
+        <button class="btn" onclick="runFix('fix-all')">执行</button>
+        <div class="status idle">等待执行</div>
+        <div class="progress-track"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
   </div>
 
   <!-- A股 -->
   <div class="card">
-    <div class="card-header"><h2>🇨🇳 A股市场</h2><span id="ab" class="badge ok">--</span></div>
+    <div class="card-header"><h2>🇨🇳 A股</h2><span id="ab" class="badge ok">--</span></div>
     <div class="card-body">
       <div class="stats">
-        <div class="stat"><div id="ad" class="val blue">--</div><div class="lbl">最新交易日</div></div>
-        <div class="stat"><div id="ac" class="val green">--</div><div class="lbl">当日数据量</div></div>
+        <div class="stat"><div id="ad" class="val blue">--</div><div class="lbl">最新日期</div></div>
+        <div class="stat"><div id="ac" class="val green">--</div><div class="lbl">数据量</div></div>
         <div class="stat"><div id="ap" class="val green">--</div><div class="lbl">覆盖率</div></div>
       </div>
-      <table id="at"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:30%"></th></tr></table>
+      <table id="at"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:25%"></th></tr></table>
     </div>
   </div>
 
   <!-- 港股 -->
   <div class="card">
-    <div class="card-header"><h2>🇭🇰 港股市场</h2><span id="hb" class="badge ok">--</span></div>
+    <div class="card-header"><h2>🇭🇰 港股</h2><span id="hb" class="badge ok">--</span></div>
     <div class="card-body">
       <div class="stats">
-        <div class="stat"><div id="hd" class="val blue">--</div><div class="lbl">最新交易日</div></div>
-        <div class="stat"><div id="hc" class="val green">--</div><div class="lbl">当日数据量</div></div>
+        <div class="stat"><div id="hd" class="val blue">--</div><div class="lbl">最新日期</div></div>
+        <div class="stat"><div id="hc" class="val green">--</div><div class="lbl">数据量</div></div>
         <div class="stat"><div id="hp" class="val green">--</div><div class="lbl">覆盖率</div></div>
       </div>
-      <table id="ht"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:30%"></th></tr></table>
+      <table id="ht"><tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:25%"></th></tr></table>
     </div>
   </div>
 
   <!-- A股趋势 -->
-  <div class="card">
-    <div class="card-header"><h2>📈 A股日线趋势</h2></div>
-    <div class="card-body"><div id="ac2" class="chart"></div></div>
-  </div>
-
+  <div class="card"><div class="card-header"><h2>📈 A股趋势</h2></div><div class="card-body"><canvas id="ac2" style="width:100%;height:120px"></canvas></div></div>
   <!-- 港股趋势 -->
-  <div class="card">
-    <div class="card-header"><h2>📈 港股日线趋势</h2></div>
-    <div class="card-body"><div id="hc2" class="chart"></div></div>
-  </div>
-
-  <!-- 板块指数 -->
-  <div class="card">
-    <div class="card-header"><h2>🇭🇰 板块 & 指数</h2></div>
-    <div class="card-body">
-      <div class="stats">
-        <div class="stat"><div id="hsd" class="val blue">--</div><div class="lbl">板块最新</div></div>
-        <div class="stat"><div id="hsc" class="val green">--</div><div class="lbl">板块数</div></div>
-        <div class="stat"><div id="hid" class="val blue">--</div><div class="lbl">指数最新</div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 盘后任务 -->
-  <div class="card">
-    <div class="card-header"><h2>⚙️ 盘后任务</h2></div>
-    <div class="card-body"><div class="jobs" id="jobs"></div></div>
-  </div>
-
-  <!-- 失败记录 -->
-  <div class="card">
-    <div class="card-header"><h2>⚠️ A股最近失败</h2></div>
-    <div class="card-body"><div id="af" class="fail-list"></div></div>
-  </div>
-  <div class="card">
-    <div class="card-header"><h2>⚠️ 港股最近失败</h2></div>
-    <div class="card-body"><div id="hf" class="fail-list"></div></div>
-  </div>
+  <div class="card"><div class="card-header"><h2>📈 港股趋势</h2></div><div class="card-body"><canvas id="hc2" style="width:100%;height:120px"></canvas></div></div>
 </div>
 
 <script>
-const FIX_ACTIONS = {
-  'hk-sync': { title: '🔄 港股今日同步', desc: '用腾讯财经源补采今日缺失的港股日线数据', cmd: 'python3 scripts/fix_data.py --fix hk-sync' },
-  'hk-missing': { title: '📥 港股缺失补全', desc: '用腾讯财经源补全所有缺失的港股历史数据（约10分钟）', cmd: 'python3 scripts/fix_data.py --fix all-missing' },
-  'hk-indicators': { title: '📊 港股指标补算', desc: '重新计算港股全部技术指标（MA/KDJ/MACD/BOLL）', cmd: 'python3 scripts/fix_data.py --fix indicators' },
-  'hk-sector': { title: '🏢 港股板块聚合', desc: '从个股日线重新聚合板块日线+技术指标', cmd: 'python3 scripts/fix_data.py --fix hk-sector' },
-  'hk-index': { title: '📈 港股指数更新', desc: '重新拉取港股指数日线数据（依赖东财API）', cmd: 'python3 scripts/fix_data.py --fix hk-index' },
-  'hk-bad-data': { title: '🧹 港股脏数据清理', desc: '删除异常价格数据并重新拉取', cmd: 'python3 scripts/fix_data.py --fix bad-data' },
-  'a-sync': { title: '🔄 A股数据同步', desc: '运行盘后任务补全A股缺失数据', cmd: 'python3 scripts/fix_data.py --fix a-sync' },
-  'a-indicators': { title: '📊 A股指标补算', desc: '重新计算A股全部技术指标', cmd: 'python3 scripts/fix_data.py --fix indicators' },
-  'a-rerun': { title: '🔁 重新执行盘后任务', desc: '强制执行完整的盘后任务流程', cmd: 'python3 scripts/fix_data.py --fix a-rerun' },
-  'fix-all': { title: '🚀 一键修复全部', desc: '自动检测并修复所有可修复的问题', cmd: 'python3 scripts/fix_data.py --fix-all --update-dashboard' },
+const FIX_NAMES = {
+  'hk-sync': '港股数据同步',
+  'hk-indicators': '港股指标补算',
+  'a-sync': 'A股数据同步',
+  'fix-all': '一键修复',
 };
 
-let isLocal = false;
+let polling = null;
 let fixPanelOpen = false;
-let activeFixes = {};
-
-// 检测是否本地服务器
-function detectLocal() {
-  isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-}
+let currentTask = null;
 
 function toggleFixPanel() {
   fixPanelOpen = !fixPanelOpen;
-  document.getElementById('fpBody').classList.toggle('hidden', !fixPanelOpen);
-  document.getElementById('fpArrow').classList.toggle('open', fixPanelOpen);
+  document.getElementById('fixBody').classList.toggle('hidden', !fixPanelOpen);
+  document.getElementById('fixArrow').textContent = fixPanelOpen ? '▼' : '▶';
 }
 
 function toast(msg, type) {
   const t = document.createElement('div');
-  t.className = 'toast ' + (type || 'ok');
+  t.className = 'toast ' + (type || 'info');
   t.textContent = msg;
   document.body.appendChild(t);
-  setTimeout(() => t.remove(), 4000);
+  setTimeout(() => t.remove(), 5000);
 }
 
-function showRunning(action, status) {
-  const bar = document.getElementById('runningBar');
-  if (status === 'start') {
-    activeFixes[action] = true;
-    bar.className = 'active';
-    bar.innerHTML = Array.from(new Set(Object.keys(activeFixes))).map(a =>
-      `<div class="running-item"><div class="spinner"></div>${FIX_ACTIONS[a]?.title || a} 执行中...</div>`
-    ).join('');
-  } else if (status === 'done') {
-    delete activeFixes[action];
-    if (Object.keys(activeFixes).length === 0) {
-      bar.className = '';
-      bar.innerHTML = '';
-    } else {
-      bar.innerHTML = Array.from(new Set(Object.keys(activeFixes))).map(a =>
-        `<div class="running-item"><div class="spinner"></div>${FIX_ACTIONS[a]?.title || a} 执行中...</div>`
-      ).join('');
-    }
-  }
-}
-
-async function runFix(action) {
-  const info = FIX_ACTIONS[action];
-  if (!info) return;
-
-  // 更新按钮状态
-  const btn = document.querySelector(`[data-fix="${action}"]`);
-  if (btn) {
-    btn.disabled = true;
-    btn.textContent = '执行中...';
-    btn.classList.add('running');
-  }
-  showRunning(action, 'start');
-
-  try {
-    if (isLocal) {
-      // 本地服务器：直接调用 API
-      const resp = await fetch('/api/fix/' + action, { method: 'POST' });
-      const result = await resp.json();
-      if (result.status === 'ok') {
-        toast('✅ ' + info.title + ' 完成！', 'ok');
-        setTimeout(load, 1500);
-      } else {
-        toast('❌ ' + (result.error || '执行失败'), 'err');
-      }
-    } else {
-      // GitHub Pages：复制命令到剪贴板
-      try {
-        await navigator.clipboard.writeText(info.cmd);
-        toast('📋 命令已复制到剪贴板，在终端运行', 'ok');
-      } catch {
-        toast('📋 请运行: ' + info.cmd, 'ok');
-      }
-    }
-  } catch (e) {
-    toast('❌ 请求失败: ' + e.message, 'err');
-  } finally {
-    if (btn) {
-      btn.disabled = false;
-      btn.textContent = '执行';
-      btn.classList.remove('running');
-    }
-    showRunning(action, 'done');
-  }
-}
-
-function renderFixPanel(alerts) {
-  const body = document.getElementById('fpBody');
-  const fixSet = new Set(alerts.map(a => a.fix).filter(Boolean));
-
-  let cards = '';
-  if (fixSet.size > 1) {
-    cards += `<div class="fix-card" style="border-color:#1e88e5">
-      <div class="fc-title">🚀 一键修复全部</div>
-      <div class="fc-desc">自动检测并修复所有 ${fixSet.size} 个问题</div>
-      <button class="fc-btn" data-fix="fix-all" onclick="runFix('fix-all')">执行</button>
-      <div class="fc-result" id="fix-res-fix-all"></div>
-    </div>`;
-  }
-
-  fixSet.forEach(action => {
-    const info = FIX_ACTIONS[action];
-    if (!info) return;
-    cards += `<div class="fix-card">
-      <div class="fc-title">${info.title}</div>
-      <div class="fc-desc">${info.desc}</div>
-      <button class="fc-btn" data-fix="${action}" onclick="runFix('${action}')">执行</button>
-      <div class="fc-result" id="fix-res-${action}"></div>
-    </div>`;
-  });
-
-  body.innerHTML = cards || '<div style="color:#8899aa;font-size:12px">✅ 当前无需要修复的问题</div>';
-}
-
+// 渲染告警
 function renderAlerts(alerts) {
   const bar = document.getElementById('alerts');
   if (!alerts || alerts.length === 0) {
-    bar.innerHTML = '<div class="alert-item info">✅ 所有数据正常</div>';
+    bar.innerHTML = '<div class="alert info"><span class="icon">✅</span><span class="msg">所有数据正常</span></div>';
     return;
   }
   bar.innerHTML = alerts.map(a => {
-    const icon = a.level === 'critical' ? '🔴' : a.level === 'error' ? '🟠' : a.level === 'warning' ? '🟡' : '🔵';
-    const fixBtn = a.fix && FIX_ACTIONS[a.fix]
-      ? `<button class="fix-btn" data-fix="${a.fix}" onclick="runFix('${a.fix}')">修复</button>`
-      : '';
-    return `<div class="alert-item ${a.level}"><span>${icon}</span><span class="msg">${a.message}</span>${fixBtn}</div>`;
+    const icon = a.level === 'error' ? '🔴' : a.level === 'warning' ? '🟡' : '🔵';
+    const fixClass = a.fix ? '' : ' style="display:none"';
+    return `<div class="alert ${a.level}">
+      <span class="icon">${icon}</span>
+      <span class="msg">${a.message}</span>
+      <button class="fix-btn"${fixClass} data-fix="${a.fix||''}" onclick="runFix('${a.fix}')">修复</button>
+    </div>`;
   }).join('');
 }
 
-function pctCls(p){return p>=95?'good':p>=80?'warn':'bad'}
-function barCls(p){return p>=95?'green':p>=80?'yellow':'red'}
-function pctBar(p){return `<div class="pbar"><div class="fill ${barCls(p)}" style="width:${p}%"></div></div>`}
-
-function render(prefix,d){
-  const ti=document.getElementById(prefix==='a'?'at':'ht');
-  // Clear old rows but keep header
-  const headerRow = ti.querySelector('tr');
-  ti.innerHTML = '';
-  ti.appendChild(headerRow);
-
-  if(!d||d.status==='error'){
+// 渲染数据卡片
+function renderMarket(prefix, d) {
+  if (!d || d.status === 'error') {
     document.getElementById(prefix+'d').textContent='N/A';
     document.getElementById(prefix+'c').textContent='--';
     document.getElementById(prefix+'p').textContent='--';
-    const b=document.getElementById(prefix+'b');
-    b.textContent='异常';b.className='badge error';
+    const b=document.getElementById(prefix+'b'); b.textContent='异常'; b.className='badge error';
     return;
   }
   document.getElementById(prefix+'d').textContent=d.latest_date||'--';
@@ -350,58 +234,201 @@ function render(prefix,d){
   b.textContent=cp>=95?'正常':cp>=80?'警告':'异常';
   b.className='badge '+(cp>=95?'ok':cp>=80?'warn':'error');
 
+  const ti=document.getElementById(prefix==='a'?'at':'ht');
+  // 清空旧行（保留表头）
+  while(ti.rows.length>1) ti.deleteRow(-1);
   const ind=d.indicators||{};
   Object.keys(ind).forEach(n=>{
     const v=ind[n];
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${n}</td><td>${v.ok}/${v.total}</td><td class="pct ${pctCls(v.pct)}">${v.pct}%</td><td>${pctBar(v.pct)}</td>`;
-    ti.appendChild(tr);
+    const pct=v.pct||0;
+    const barColor=pct>=95?'green':pct>=80?'yellow':'red';
+    const pctColor=pct>=95?'good':pct>=80?'warn':'bad';
+    const tr=ti.insertRow();
+    tr.innerHTML=`<td>${n}</td><td>${v.ok}/${v.total}</td><td class="pct ${pctColor}">${pct}%</td>
+      <td><div class="pbar"><div class="fill ${barColor}" style="width:${pct}%"></div></div></td>`;
   });
 }
 
-function chart(id,data){
-  const el=document.getElementById(id);
-  if(!el)return;
-  if(el._chart)el._chart.dispose();
-  const c=echarts.init(el);
-  c._chart=c;
-  c.setOption({
-    tooltip:{trigger:'axis'},grid:{left:'8%',right:'4%',bottom:'14%',top:'8%'},
-    xAxis:{type:'category',data:data.map(d=>d.date.slice(5)),axisLine:{lineStyle:{color:'#2a3a4a'}},axisLabel:{color:'#8899aa',fontSize:10}},
-    yAxis:{type:'value',axisLine:{lineStyle:{color:'#2a3a4a'}},axisLabel:{color:'#8899aa',fontSize:10},splitLine:{lineStyle:{color:'#1a2530'}}},
-    series:[{data:data.map(d=>d.count),type:'bar',itemStyle:{color:'#4fc3f7'},barWidth:'60%'}]
+// 简易趋势图（用 Canvas 画柱状图，不依赖外部库）
+function drawBarChart(canvasId, data, color) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas || !data.length) return;
+  const ctx = canvas.getContext('2d');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  ctx.scale(dpr, dpr);
+
+  const w = rect.width, h = rect.height;
+  const padding = {top: 8, right: 8, bottom: 20, left: 36};
+  const chartW = w - padding.left - padding.right;
+  const chartH = h - padding.top - padding.bottom;
+
+  ctx.clearRect(0, 0, w, h);
+
+  const maxVal = Math.max(...data.map(d => d.count));
+  const barW = Math.max(4, chartW / data.length - 2);
+
+  // Y轴标签
+  ctx.fillStyle = '#8899aa';
+  ctx.font = '9px sans-serif';
+  ctx.textAlign = 'right';
+  ctx.fillText(maxVal.toLocaleString(), padding.left - 2, padding.top + 8);
+  ctx.fillText(Math.round(maxVal/2).toLocaleString(), padding.left - 2, padding.top + chartH/2 + 4);
+  ctx.fillText('0', padding.left - 2, h - padding.bottom + 3);
+
+  // 柱状图
+  data.forEach((d, i) => {
+    const x = padding.left + (chartW / data.length) * i + (chartW / data.length - barW) / 2;
+    const barH = (d.count / maxVal) * chartH;
+    const y = padding.top + chartH - barH;
+
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, barW, barH);
+
+    // X轴标签
+    ctx.fillStyle = '#8899aa';
+    ctx.textAlign = 'center';
+    ctx.font = '8px sans-serif';
+    ctx.fillText(d.date.slice(5), x + barW/2, h - padding.bottom + 12);
   });
 }
 
-function update(d){
-  document.getElementById('ts').textContent='更新于 '+d.timestamp;
-  renderAlerts(d.alerts);
-  renderFixPanel(d.alerts);
-  render('a',d.a_share);
-  render('h',d.hk);
-  chart('ac2',d.a_share?.trend||[]);
-  chart('hc2',d.hk?.trend||[]);
-  const hk=d.hk||{};
-  document.getElementById('hsd').textContent=hk.sector_latest||'--';
-  document.getElementById('hsc').textContent=hk.sector_count||'--';
-  document.getElementById('hid').textContent=hk.index_latest||'--';
-  const jb=document.getElementById('jobs');
-  const aj=d.after_market_jobs?.a_share,hj=d.after_market_jobs?.hk;
-  jb.innerHTML=`<div class="job"><div class="jt">🇨🇳 A股盘后</div><div class="jd">${aj?`${aj.status==='ok'?'✅':'❌'} ${aj.date}`:'无记录'}</div></div>
-    <div class="job"><div class="jt">🇭🇰 港股同步</div><div class="jd">${hj?`${hj.status==='ok'?'✅':'❌'} ${hj.date}`:'无记录'}</div></div>`;
-  document.getElementById('af').innerHTML=(d.a_share?.recent_failures||[]).length?d.a_share.recent_failures.map(f=>`<div class="fail-item"><span class="s">${f.stock||'N/A'}</span> ${f.error}</div>`).join(''):'<div class="fail-item">✅ 无失败</div>';
-  document.getElementById('hf').innerHTML=(d.hk?.recent_failures||[]).length?d.hk.recent_failures.map(f=>`<div class="fail-item"><span class="s">${f.stock||'N/A'}</span> ${f.error}</div>`).join(''):'<div class="fail-item">✅ 无失败</div>';
+// 运行修复
+async function runFix(action) {
+  const name = FIX_NAMES[action] || action;
+  const btn = document.querySelector(`#fix-${action} .btn`);
+
+  // 先尝试提交
+  try {
+    const resp = await fetch('/api/fix/' + action, { method: 'POST' });
+    const result = await resp.json();
+
+    if (result.status === 'rejected') {
+      toast('⚠️ ' + result.message, 'err');
+      return;
+    }
+
+    if (result.status === 'queued') {
+      // 更新 UI
+      if (btn) { btn.disabled = true; btn.textContent = '执行中...'; btn.classList.add('busy'); }
+      currentTask = action;
+      updateFixCard(action, 'running', '排队中...');
+      showRunning(name, 0);
+      toast('🚀 ' + name + ' 已提交', 'info');
+
+      // 开始轮询进度
+      startPolling(action);
+    }
+  } catch (e) {
+    toast('❌ 请求失败: ' + e.message, 'err');
+  }
 }
 
-async function load(){
-  try{
-    detectLocal();
-    const base=window.location.href.endsWith('.html')?window.location.href.substring(0,window.location.href.lastIndexOf('/')+1):window.location.href;
-    const r=await fetch(base+'dashboard-data.json?t='+Date.now());
-    update(await r.json());
-  }catch(e){document.getElementById('ts').textContent='加载失败: '+e.message}
+// 轮询任务进度
+function startPolling(taskId) {
+  if (polling) clearInterval(polling);
+  polling = setInterval(async () => {
+    try {
+      const resp = await fetch('/api/task/' + taskId);
+      const t = await resp.json();
+
+      if (!t || t.status === 'not_found') return;
+
+      // 更新进度条
+      updateFixCard(taskId, t.status, t.message, t.progress);
+      showRunning(FIX_NAMES[taskId] || taskId, t.progress);
+
+      if (t.status === 'done') {
+        stopPolling();
+        toast('✅ ' + (t.message || '完成'), 'ok');
+        setTimeout(load, 1500); // 1.5秒后刷新数据
+      } else if (t.status === 'error') {
+        stopPolling();
+        toast('❌ ' + (t.message || '失败'), 'err');
+        // 恢复按钮
+        const btn = document.querySelector(`#fix-${taskId} .btn`);
+        if (btn) { btn.disabled = false; btn.textContent = '执行'; btn.classList.remove('busy'); }
+      }
+    } catch (e) {
+      // 静默失败，继续轮询
+    }
+  }, 1000); // 每秒轮询一次
 }
+
+function stopPolling() {
+  if (polling) { clearInterval(polling); polling = null; }
+  currentTask = null;
+  hideRunning();
+}
+
+function showRunning(name, progress) {
+  const bar = document.getElementById('runningBar');
+  const text = document.getElementById('runningText');
+  bar.className = 'running-bar active';
+  text.textContent = `${name} 执行中... ${progress}%`;
+}
+
+function hideRunning() {
+  document.getElementById('runningBar').className = 'running-bar';
+}
+
+function updateFixCard(action, status, message, progress) {
+  const card = document.getElementById('fix-' + action);
+  if (!card) return;
+  const statusEl = card.querySelector('.status');
+  const track = card.querySelector('.progress-track');
+  const fill = card.querySelector('.progress-fill');
+
+  statusEl.className = 'status ' + status;
+  statusEl.textContent = message;
+
+  if (progress !== undefined) {
+    track.classList.add('active');
+    fill.style.width = Math.min(progress, 100) + '%';
+  }
+
+  if (status === 'running') {
+    const btn = card.querySelector('.btn');
+    if (btn) { btn.disabled = true; btn.textContent = '执行中...'; btn.classList.add('busy'); }
+  } else if (status === 'done' || status === 'error') {
+    const btn = card.querySelector('.btn');
+    if (btn) { btn.disabled = false; btn.textContent = '执行'; btn.classList.remove('busy'); }
+  }
+}
+
+// 加载数据
+async function load() {
+  try {
+    const r = await fetch('/api/data?t=' + Date.now());
+    const d = await r.json();
+    document.getElementById('ts').textContent = '更新于 ' + d.timestamp;
+    renderAlerts(d.alerts);
+    renderMarket('a', d.a_share);
+    renderMarket('h', d.hk);
+    drawBarChart('ac2', d.a_share?.trend || [], '#4caf50');
+    drawBarChart('hc2', d.hk?.trend || [], '#4fc3f7');
+
+    // 同步任务状态到修复面板
+    if (currentTask) {
+      try {
+        const resp = await fetch('/api/task/' + currentTask);
+        const t = await resp.json();
+        if (t && t.status !== 'pending') {
+          updateFixCard(currentTask, t.status, t.message, t.progress);
+        }
+      } catch {}
+    }
+  } catch (e) {
+    document.getElementById('ts').textContent = '加载失败: ' + e.message;
+  }
+}
+
+// 初始加载
 load();
+// 每30秒自动刷新
+setInterval(load, 30000);
 </script>
 </body>
 </html>
