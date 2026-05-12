@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-12 20:51:11",
+  "timestamp": "2026-05-12 21:29:31",
   "a_share": {
     "latest_date": "2026-05-12",
     "total_stocks": 5516,
@@ -214,7 +214,7 @@
       "date": "2026-05-12",
       "status": "ok",
       "log_file": "after_market_20260512.log",
-      "size_kb": 8.2
+      "size_kb": 13.0
     },
     "hk": {
       "date": "2026-05-12",
