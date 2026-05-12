@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-12 14:33:52",
+  "timestamp": "2026-05-12 14:44:26",
   "a_share": {
     "latest_date": "2026-05-11",
     "total_stocks": 5516,
@@ -75,7 +75,7 @@
       }
     },
     "recent_failures": [],
-    "sector_latest": "2026-05-11"
+    "sector_latest": "2026-05-12"
   },
   "hk": {
     "latest_date": "2026-05-11",
@@ -126,29 +126,29 @@
     ],
     "indicators": {
       "MA5": {
-        "ok": 502,
+        "ok": 2113,
         "total": 2113,
-        "pct": 23.8
+        "pct": 100.0
       },
       "KDJ": {
-        "ok": 502,
+        "ok": 2113,
         "total": 2113,
-        "pct": 23.8
+        "pct": 100.0
       },
       "MACD": {
-        "ok": 502,
+        "ok": 2113,
         "total": 2113,
-        "pct": 23.8
+        "pct": 100.0
       },
       "BOLL": {
-        "ok": 501,
+        "ok": 2111,
         "total": 2113,
-        "pct": 23.7
+        "pct": 99.9
       },
       "涨跌幅": {
-        "ok": 502,
+        "ok": 2113,
         "total": 2113,
-        "pct": 23.8
+        "pct": 100.0
       }
     },
     "sector_latest": "2026-05-11",
@@ -209,10 +209,10 @@
   },
   "after_market_jobs": {
     "a_share": {
-      "date": "2026-05-11",
+      "date": "2026-05-12",
       "status": "ok",
-      "log_file": "after_market_20260511.log",
-      "size_kb": 8.4
+      "log_file": "after_market_20260512.log",
+      "size_kb": 3.6
     },
     "hk": {
       "date": "2026-05-11",
@@ -226,31 +226,6 @@
       "level": "error",
       "message": "港股覆盖率仅77.5%(2113/2727)",
       "fix": "hk-missing"
-    },
-    {
-      "level": "error",
-      "message": "港股MA5指标覆盖率仅23.8%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股KDJ指标覆盖率仅23.8%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股MACD指标覆盖率仅23.8%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股BOLL指标覆盖率仅23.7%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股涨跌幅指标覆盖率仅23.8%",
-      "fix": "hk-indicators"
     },
     {
       "level": "error",
