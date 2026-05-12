@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-12 18:48:56",
+  "timestamp": "2026-05-12 19:30:41",
   "a_share": {
     "latest_date": "2026-05-12",
     "total_stocks": 5516,
@@ -80,8 +80,8 @@
   "hk": {
     "latest_date": "2026-05-12",
     "total_stocks": 2727,
-    "latest_count": 679,
-    "coverage_pct": 24.9,
+    "latest_count": 2112,
+    "coverage_pct": 77.4,
     "trend": [
       {
         "date": "2026-04-28",
@@ -121,33 +121,33 @@
       },
       {
         "date": "2026-05-12",
-        "count": 679
+        "count": 2112
       }
     ],
     "indicators": {
       "MA5": {
-        "ok": 679,
-        "total": 679,
+        "ok": 2112,
+        "total": 2112,
         "pct": 100.0
       },
       "KDJ": {
-        "ok": 679,
-        "total": 679,
+        "ok": 2112,
+        "total": 2112,
         "pct": 100.0
       },
       "MACD": {
-        "ok": 679,
-        "total": 679,
+        "ok": 2112,
+        "total": 2112,
         "pct": 100.0
       },
       "BOLL": {
-        "ok": 675,
-        "total": 679,
+        "ok": 2100,
+        "total": 2112,
         "pct": 99.4
       },
       "涨跌幅": {
-        "ok": 679,
-        "total": 679,
+        "ok": 2112,
+        "total": 2112,
         "pct": 100.0
       }
     },
@@ -224,7 +224,7 @@
   "alerts": [
     {
       "level": "error",
-      "message": "港股覆盖率仅24.9%(679/2727)",
+      "message": "港股覆盖率仅77.4%(2112/2727)",
       "fix": "hk-missing"
     },
     {
