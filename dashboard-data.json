@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-12 13:57:20",
+  "timestamp": "2026-05-12 14:33:52",
   "a_share": {
     "latest_date": "2026-05-11",
     "total_stocks": 5516,
@@ -126,29 +126,29 @@
     ],
     "indicators": {
       "MA5": {
-        "ok": 2113,
+        "ok": 502,
         "total": 2113,
-        "pct": 100.0
+        "pct": 23.8
       },
       "KDJ": {
-        "ok": 2113,
+        "ok": 502,
         "total": 2113,
-        "pct": 100.0
+        "pct": 23.8
       },
       "MACD": {
-        "ok": 2113,
+        "ok": 502,
         "total": 2113,
-        "pct": 100.0
+        "pct": 23.8
       },
       "BOLL": {
-        "ok": 2111,
+        "ok": 501,
         "total": 2113,
-        "pct": 99.9
+        "pct": 23.7
       },
       "涨跌幅": {
-        "ok": 2113,
+        "ok": 502,
         "total": 2113,
-        "pct": 100.0
+        "pct": 23.8
       }
     },
     "sector_latest": "2026-05-11",
@@ -224,19 +224,48 @@
   "alerts": [
     {
       "level": "error",
-      "message": "港股覆盖率仅77.5%(2113/2727)"
+      "message": "港股覆盖率仅77.5%(2113/2727)",
+      "fix": "hk-missing"
     },
     {
       "level": "error",
-      "message": "港股同步任务异常(2026-05-11)"
+      "message": "港股MA5指标覆盖率仅23.8%",
+      "fix": "hk-indicators"
+    },
+    {
+      "level": "error",
+      "message": "港股KDJ指标覆盖率仅23.8%",
+      "fix": "hk-indicators"
+    },
+    {
+      "level": "error",
+      "message": "港股MACD指标覆盖率仅23.8%",
+      "fix": "hk-indicators"
+    },
+    {
+      "level": "error",
+      "message": "港股BOLL指标覆盖率仅23.7%",
+      "fix": "hk-indicators"
+    },
+    {
+      "level": "error",
+      "message": "港股涨跌幅指标覆盖率仅23.8%",
+      "fix": "hk-indicators"
+    },
+    {
+      "level": "error",
+      "message": "港股同步任务异常(2026-05-11)",
+      "fix": "hk-sync"
     },
     {
       "level": "warning",
-      "message": "A股覆盖率仅94.3%(5201/5516)"
+      "message": "A股覆盖率仅94.3%(5201/5516)",
+      "fix": "a-sync"
     },
     {
       "level": "info",
-      "message": "指数数据滞后(2026-05-06)"
+      "message": "指数数据滞后(2026-05-06)",
+      "fix": "hk-index"
     }
   ]
 }
