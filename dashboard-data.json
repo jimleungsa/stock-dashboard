@@ -1,15 +1,11 @@
 {
-  "timestamp": "2026-05-12 14:56:58",
+  "timestamp": "2026-05-12 18:08:23",
   "a_share": {
-    "latest_date": "2026-05-11",
+    "latest_date": "2026-05-12",
     "total_stocks": 5516,
     "latest_count": 5201,
     "coverage_pct": 94.3,
     "trend": [
-      {
-        "date": "2026-04-23",
-        "count": 5064
-      },
       {
         "date": "2026-04-24",
         "count": 5063
@@ -45,6 +41,10 @@
       {
         "date": "2026-05-11",
         "count": 5201
+      },
+      {
+        "date": "2026-05-12",
+        "count": 5201
       }
     ],
     "indicators": {
@@ -78,15 +78,11 @@
     "sector_latest": "2026-05-12"
   },
   "hk": {
-    "latest_date": "2026-05-11",
+    "latest_date": "2026-05-12",
     "total_stocks": 2727,
-    "latest_count": 2113,
-    "coverage_pct": 77.5,
+    "latest_count": 679,
+    "coverage_pct": 24.9,
     "trend": [
-      {
-        "date": "2026-04-27",
-        "count": 2439
-      },
       {
         "date": "2026-04-28",
         "count": 2433
@@ -122,33 +118,37 @@
       {
         "date": "2026-05-11",
         "count": 2113
+      },
+      {
+        "date": "2026-05-12",
+        "count": 679
       }
     ],
     "indicators": {
       "MA5": {
-        "ok": 1976,
-        "total": 2113,
-        "pct": 93.5
+        "ok": 679,
+        "total": 679,
+        "pct": 100.0
       },
       "KDJ": {
-        "ok": 1976,
-        "total": 2113,
-        "pct": 93.5
+        "ok": 679,
+        "total": 679,
+        "pct": 100.0
       },
       "MACD": {
-        "ok": 1976,
-        "total": 2113,
-        "pct": 93.5
+        "ok": 679,
+        "total": 679,
+        "pct": 100.0
       },
       "BOLL": {
-        "ok": 1975,
-        "total": 2113,
-        "pct": 93.5
+        "ok": 675,
+        "total": 679,
+        "pct": 99.4
       },
       "涨跌幅": {
-        "ok": 1976,
-        "total": 2113,
-        "pct": 93.5
+        "ok": 679,
+        "total": 679,
+        "pct": 100.0
       }
     },
     "sector_latest": "2026-05-11",
@@ -156,54 +156,54 @@
     "index_latest": "2026-05-06",
     "recent_failures": [
       {
-        "stock": "09992.HK",
-        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:56"
-      },
-      {
-        "stock": "09993.HK",
-        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:56"
-      },
-      {
         "stock": "09995.HK",
         "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:56"
+        "time": "2026-05-12 08:35:51"
       },
       {
         "stock": "09996.HK",
         "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:56"
+        "time": "2026-05-12 08:35:51"
       },
       {
-        "stock": "09998.HK",
+        "stock": "09991.HK",
         "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:56"
-      },
-      {
-        "stock": "09999.HK",
-        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:56"
-      },
-      {
-        "stock": "09985.HK",
-        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:55"
+        "time": "2026-05-12 08:35:50"
       },
       {
         "stock": "09986.HK",
         "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:55"
-      },
-      {
-        "stock": "09987.HK",
-        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:55"
+        "time": "2026-05-12 08:35:49"
       },
       {
         "stock": "09988.HK",
         "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
-        "time": "2026-05-11 08:27:55"
+        "time": "2026-05-12 08:35:49"
+      },
+      {
+        "stock": "09981.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-12 08:35:48"
+      },
+      {
+        "stock": "09969.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-12 08:35:47"
+      },
+      {
+        "stock": "09973.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-12 08:35:47"
+      },
+      {
+        "stock": "09963.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-12 08:35:46"
+      },
+      {
+        "stock": "09966.HK",
+        "error": "超时:False | HTTPSConnectionPool(host='33.push2his.eastmoney.com', port=443): Max retries exceeded wit",
+        "time": "2026-05-12 08:35:46"
       }
     ]
   },
@@ -212,30 +212,35 @@
       "date": "2026-05-12",
       "status": "ok",
       "log_file": "after_market_20260512.log",
-      "size_kb": 3.6
+      "size_kb": 8.2
     },
     "hk": {
-      "date": "2026-05-11",
+      "date": "2026-05-12",
       "status": "error",
-      "log_file": "hk_sync_20260511_162006.log",
+      "log_file": "hk_sync_20260512_162004.log",
       "size_kb": 1.5
     }
   },
   "alerts": [
     {
       "level": "error",
-      "message": "港股覆盖率仅77.5%(2113/2727)",
+      "message": "港股覆盖率仅24.9%(679/2727)",
       "fix": "hk-missing"
     },
     {
       "level": "error",
-      "message": "港股同步任务异常(2026-05-11)",
+      "message": "港股同步任务异常(2026-05-12)",
       "fix": "hk-sync"
     },
     {
       "level": "warning",
       "message": "A股覆盖率仅94.3%(5201/5516)",
       "fix": "a-sync"
+    },
+    {
+      "level": "warning",
+      "message": "板块数据滞后(个股:2026-05-12,板块:2026-05-11)",
+      "fix": "hk-sector"
     },
     {
       "level": "info",
