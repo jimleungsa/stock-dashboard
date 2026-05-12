@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-12 19:30:41",
+  "timestamp": "2026-05-12 20:16:44",
   "a_share": {
     "latest_date": "2026-05-12",
     "total_stocks": 5516,
@@ -81,7 +81,9 @@
     "latest_date": "2026-05-12",
     "total_stocks": 2727,
     "latest_count": 2112,
-    "coverage_pct": 77.4,
+    "active_stocks": 2644,
+    "inactive_stocks": 83,
+    "coverage_pct": 79.9,
     "trend": [
       {
         "date": "2026-04-28",
@@ -224,8 +226,8 @@
   "alerts": [
     {
       "level": "error",
-      "message": "港股覆盖率仅77.4%(2112/2727)",
-      "fix": "hk-missing"
+      "message": "港股532只活跃股缺失数据(2112/2644)",
+      "fix": "hk-sync"
     },
     {
       "level": "error",
