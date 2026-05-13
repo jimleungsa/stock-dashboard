@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-13 09:13:03",
+  "timestamp": "2026-05-13 09:17:37",
   "a_share": {
     "latest_date": "2026-05-12",
     "total_stocks": 5516,
@@ -218,7 +218,7 @@
     },
     "hk": {
       "date": "2026-05-12",
-      "status": "error",
+      "status": "ok",
       "log_file": "hk_sync_20260512_162004.log",
       "size_kb": 1.5
     }
@@ -227,11 +227,6 @@
     {
       "level": "error",
       "message": "港股532只活跃股缺失数据(2112/2644)",
-      "fix": "hk-sync"
-    },
-    {
-      "level": "error",
-      "message": "港股同步任务异常(2026-05-12)",
       "fix": "hk-sync"
     },
     {
