@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-13 09:17:37",
+  "timestamp": "2026-05-13 09:37:16",
   "a_share": {
     "latest_date": "2026-05-12",
     "total_stocks": 5516,
@@ -153,9 +153,9 @@
         "pct": 100.0
       }
     },
-    "sector_latest": "2026-05-11",
+    "sector_latest": "2026-05-12",
     "sector_count": 31,
-    "index_latest": "2026-05-06",
+    "index_latest": "2026-05-13",
     "recent_failures": [
       {
         "stock": "09995.HK",
@@ -235,13 +235,8 @@
       "fix": "a-sync"
     },
     {
-      "level": "warning",
-      "message": "板块数据滞后(个股:2026-05-12,板块:2026-05-11)",
-      "fix": "hk-sector"
-    },
-    {
       "level": "info",
-      "message": "指数数据滞后(2026-05-06)",
+      "message": "指数数据滞后(2026-05-13)",
       "fix": "hk-index"
     }
   ]

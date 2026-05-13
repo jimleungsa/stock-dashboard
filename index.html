@@ -67,10 +67,10 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
 <body>
 <div class="header">
     <h1>📊 <span>数据质量看板</span></h1>
-    <div class="meta">更新于 2026-05-13 09:17:25</div>
+    <div class="meta">更新于 2026-05-13 09:37:16</div>
 </div>
 <div class="alerts">
-<div class="alert error"><span class="icon">🔴</span><span class="msg">港股532只活跃股缺失数据(2112/2644)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">A股覆盖率仅94.3%(5201/5516)</span><button class="fix-btn" onclick="copyFixCmd('a-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">板块数据滞后(个股:2026-05-12,板块:2026-05-11)</span><button class="fix-btn" onclick="copyFixCmd('hk-sector')">修复</button></div><div class="alert info"><span class="icon">🔵</span><span class="msg">指数数据滞后(2026-05-06)</span><button class="fix-btn" onclick="copyFixCmd('hk-index')">修复</button></div>
+<div class="alert error"><span class="icon">🔴</span><span class="msg">港股532只活跃股缺失数据(2112/2644)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">A股覆盖率仅94.3%(5201/5516)</span><button class="fix-btn" onclick="copyFixCmd('a-sync')">修复</button></div><div class="alert info"><span class="icon">🔵</span><span class="msg">指数数据滞后(2026-05-13)</span><button class="fix-btn" onclick="copyFixCmd('hk-index')">修复</button></div>
 </div>
 <div class="container">
     <div class="fix-panel">
@@ -80,25 +80,20 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
         </div>
         <div class="fix-body hidden" id="fBody">
 <div class="fix-card">
-            <div class="fc-title">🏢 港股板块聚合</div>
-            <div class="fc-desc">从个股日线重新聚合板块</div>
-            <button class="fc-btn" onclick="copyFixCmd('hk-sector')">📋 复制命令</button>
-            <div class="fc-cmd" id="cmd-hk-sector" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-sector</div>
-        </div><div class="fix-card">
             <div class="fc-title">🔄 港股同步</div>
             <div class="fc-desc">用腾讯源补采今日缺失的港股日线</div>
             <button class="fc-btn" onclick="copyFixCmd('hk-sync')">📋 复制命令</button>
             <div class="fc-cmd" id="cmd-hk-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-sync</div>
         </div><div class="fix-card">
-            <div class="fc-title">🔄 A股同步</div>
-            <div class="fc-desc">运行盘后任务补全数据</div>
-            <button class="fc-btn" onclick="copyFixCmd('a-sync')">📋 复制命令</button>
-            <div class="fc-cmd" id="cmd-a-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix a-sync</div>
-        </div><div class="fix-card">
             <div class="fc-title">📈 港股指数更新</div>
             <div class="fc-desc">重新拉取港股指数数据</div>
             <button class="fc-btn" onclick="copyFixCmd('hk-index')">📋 复制命令</button>
             <div class="fc-cmd" id="cmd-hk-index" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-index</div>
+        </div><div class="fix-card">
+            <div class="fc-title">🔄 A股同步</div>
+            <div class="fc-desc">运行盘后任务补全数据</div>
+            <button class="fc-btn" onclick="copyFixCmd('a-sync')">📋 复制命令</button>
+            <div class="fc-cmd" id="cmd-a-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix a-sync</div>
         </div>
         </div>
     </div>
@@ -145,9 +140,9 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
         <div class="card-header"><h2>🇭🇰 板块 & 指数</h2></div>
         <div class="card-body">
             <div class="stats">
-                <div class="stat"><div class="val blue">2026-05-11</div><div class="lbl">板块最新</div></div>
+                <div class="stat"><div class="val blue">2026-05-12</div><div class="lbl">板块最新</div></div>
                 <div class="stat"><div class="val green">31</div><div class="lbl">板块数</div></div>
-                <div class="stat"><div class="val blue">2026-05-06</div><div class="lbl">指数最新</div></div>
+                <div class="stat"><div class="val blue">2026-05-13</div><div class="lbl">指数最新</div></div>
             </div>
         </div>
     </div>
@@ -183,7 +178,7 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
         </div>
     </div>
 </div>
-<div class="footer">数据质量看板 · 最后更新: 2026-05-13 09:17:25 · 点击修复按钮复制命令到终端执行</div>
+<div class="footer">数据质量看板 · 最后更新: 2026-05-13 09:37:16 · 点击修复按钮复制命令到终端执行</div>
 
 <script>
 function toggleFix(){
