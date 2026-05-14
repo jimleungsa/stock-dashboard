@@ -1,19 +1,11 @@
 {
-  "timestamp": "2026-05-13 09:37:16",
+  "timestamp": "2026-05-14 18:55:05",
   "a_share": {
-    "latest_date": "2026-05-12",
+    "latest_date": "2026-05-14",
     "total_stocks": 5516,
     "latest_count": 5201,
     "coverage_pct": 94.3,
     "trend": [
-      {
-        "date": "2026-04-24",
-        "count": 5063
-      },
-      {
-        "date": "2026-04-27",
-        "count": 5061
-      },
       {
         "date": "2026-04-28",
         "count": 5054
@@ -45,6 +37,14 @@
       {
         "date": "2026-05-12",
         "count": 5201
+      },
+      {
+        "date": "2026-05-13",
+        "count": 5201
+      },
+      {
+        "date": "2026-05-14",
+        "count": 5201
       }
     ],
     "indicators": {
@@ -75,24 +75,16 @@
       }
     },
     "recent_failures": [],
-    "sector_latest": "2026-05-12"
+    "sector_latest": "2026-05-14"
   },
   "hk": {
-    "latest_date": "2026-05-12",
+    "latest_date": "2026-05-14",
     "total_stocks": 2727,
-    "latest_count": 2112,
+    "latest_count": 2108,
     "active_stocks": 2644,
     "inactive_stocks": 83,
-    "coverage_pct": 79.9,
+    "coverage_pct": 79.7,
     "trend": [
-      {
-        "date": "2026-04-28",
-        "count": 2433
-      },
-      {
-        "date": "2026-04-29",
-        "count": 2416
-      },
       {
         "date": "2026-04-30",
         "count": 2427
@@ -123,39 +115,47 @@
       },
       {
         "date": "2026-05-12",
-        "count": 2112
+        "count": 2113
+      },
+      {
+        "date": "2026-05-13",
+        "count": 2109
+      },
+      {
+        "date": "2026-05-14",
+        "count": 2108
       }
     ],
     "indicators": {
       "MA5": {
-        "ok": 2112,
-        "total": 2112,
+        "ok": 2108,
+        "total": 2108,
         "pct": 100.0
       },
       "KDJ": {
-        "ok": 2112,
-        "total": 2112,
+        "ok": 2108,
+        "total": 2108,
         "pct": 100.0
       },
       "MACD": {
-        "ok": 2112,
-        "total": 2112,
+        "ok": 2108,
+        "total": 2108,
         "pct": 100.0
       },
       "BOLL": {
-        "ok": 2100,
-        "total": 2112,
-        "pct": 99.4
+        "ok": 2097,
+        "total": 2108,
+        "pct": 99.5
       },
       "涨跌幅": {
-        "ok": 2112,
-        "total": 2112,
+        "ok": 2108,
+        "total": 2108,
         "pct": 100.0
       }
     },
-    "sector_latest": "2026-05-12",
+    "sector_latest": "2026-05-14",
     "sector_count": 31,
-    "index_latest": "2026-05-13",
+    "index_latest": "2026-05-14",
     "recent_failures": [
       {
         "stock": "09995.HK",
@@ -211,10 +211,10 @@
   },
   "after_market_jobs": {
     "a_share": {
-      "date": "2026-05-12",
+      "date": "2026-05-14",
       "status": "ok",
-      "log_file": "after_market_20260512.log",
-      "size_kb": 13.0
+      "log_file": "after_market_20260514.log",
+      "size_kb": 5.0
     },
     "hk": {
       "date": "2026-05-12",
@@ -226,18 +226,13 @@
   "alerts": [
     {
       "level": "error",
-      "message": "港股532只活跃股缺失数据(2112/2644)",
+      "message": "港股536只活跃股缺失数据(2108/2644)",
       "fix": "hk-sync"
     },
     {
       "level": "warning",
       "message": "A股覆盖率仅94.3%(5201/5516)",
       "fix": "a-sync"
-    },
-    {
-      "level": "info",
-      "message": "指数数据滞后(2026-05-13)",
-      "fix": "hk-index"
     }
   ]
 }
