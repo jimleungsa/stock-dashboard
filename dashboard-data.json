@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-16 20:37:03",
+  "timestamp": "2026-05-16 22:36:37",
   "a_share": {
     "latest_date": "2026-05-15",
     "total_stocks": 5516,
@@ -80,10 +80,10 @@
   "hk": {
     "latest_date": "2026-05-15",
     "total_stocks": 2727,
-    "latest_count": 1019,
+    "latest_count": 2107,
     "active_stocks": 2644,
     "inactive_stocks": 83,
-    "coverage_pct": 38.5,
+    "coverage_pct": 79.7,
     "trend": [
       {
         "date": "2026-05-04",
@@ -123,33 +123,33 @@
       },
       {
         "date": "2026-05-15",
-        "count": 1019
+        "count": 2107
       }
     ],
     "indicators": {
       "MA5": {
-        "ok": 1019,
-        "total": 1019,
+        "ok": 2107,
+        "total": 2107,
         "pct": 100.0
       },
       "KDJ": {
-        "ok": 1019,
-        "total": 1019,
+        "ok": 2107,
+        "total": 2107,
         "pct": 100.0
       },
       "MACD": {
-        "ok": 1019,
-        "total": 1019,
+        "ok": 2107,
+        "total": 2107,
         "pct": 100.0
       },
       "BOLL": {
-        "ok": 1016,
-        "total": 1019,
-        "pct": 99.7
+        "ok": 2098,
+        "total": 2107,
+        "pct": 99.6
       },
       "涨跌幅": {
-        "ok": 1019,
-        "total": 1019,
+        "ok": 2107,
+        "total": 2107,
         "pct": 100.0
       }
     },
@@ -175,7 +175,7 @@
   "alerts": [
     {
       "level": "error",
-      "message": "港股1625只活跃股缺失数据(1019/2644)",
+      "message": "港股537只活跃股缺失数据(2107/2644)",
       "fix": "hk-sync"
     },
     {
