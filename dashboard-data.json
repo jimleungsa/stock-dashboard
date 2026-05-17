@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-17 10:27:49",
+  "timestamp": "2026-05-17 11:13:55",
   "a_share": {
     "latest_date": "2026-05-15",
     "total_stocks": 5516,
@@ -78,17 +78,13 @@
     "sector_latest": "2026-05-15"
   },
   "hk": {
-    "latest_date": "2026-05-14",
+    "latest_date": "2026-05-15",
     "total_stocks": 2727,
-    "latest_count": 2110,
+    "latest_count": 2107,
     "active_stocks": 2644,
     "inactive_stocks": 83,
-    "coverage_pct": 79.8,
+    "coverage_pct": 79.7,
     "trend": [
-      {
-        "date": "2026-04-30",
-        "count": 2427
-      },
       {
         "date": "2026-05-04",
         "count": 2457
@@ -124,33 +120,37 @@
       {
         "date": "2026-05-14",
         "count": 2110
+      },
+      {
+        "date": "2026-05-15",
+        "count": 2107
       }
     ],
     "indicators": {
       "MA5": {
-        "ok": 1020,
-        "total": 2110,
-        "pct": 48.3
+        "ok": 2107,
+        "total": 2107,
+        "pct": 100.0
       },
       "KDJ": {
-        "ok": 1020,
-        "total": 2110,
-        "pct": 48.3
+        "ok": 2107,
+        "total": 2107,
+        "pct": 100.0
       },
       "MACD": {
-        "ok": 1020,
-        "total": 2110,
-        "pct": 48.3
+        "ok": 2107,
+        "total": 2107,
+        "pct": 100.0
       },
       "BOLL": {
-        "ok": 1016,
-        "total": 2110,
-        "pct": 48.2
+        "ok": 2098,
+        "total": 2107,
+        "pct": 99.6
       },
       "涨跌幅": {
-        "ok": 1020,
-        "total": 2110,
-        "pct": 48.3
+        "ok": 2107,
+        "total": 2107,
+        "pct": 100.0
       }
     },
     "sector_latest": "2026-05-15",
@@ -160,57 +160,27 @@
   },
   "after_market_jobs": {
     "a_share": {
-      "date": "2026-05-16",
-      "status": "skipped",
-      "log_file": "after_market_20260516.log",
-      "size_kb": 0.3
+      "date": "2026-05-15",
+      "status": "ok",
+      "log_file": "after_market_20260515.log",
+      "size_kb": 7.6
     },
     "hk": {
-      "date": "2026-05-16",
-      "status": "error",
-      "log_file": "hk_sync_v3_20260516.log",
-      "size_kb": 27.8
+      "date": "2026-05-15",
+      "status": "ok",
+      "log_file": "hk_sync_v3_20260517.log",
+      "size_kb": 28.5
     }
   },
   "alerts": [
     {
       "level": "error",
-      "message": "港股数据滞后3天(2026-05-14)",
+      "message": "港股数据滞后2天(2026-05-15)",
       "fix": "hk-sync"
     },
     {
       "level": "error",
-      "message": "港股534只活跃股缺失数据(2110/2644)",
-      "fix": "hk-sync"
-    },
-    {
-      "level": "error",
-      "message": "港股MA5指标覆盖率仅48.3%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股KDJ指标覆盖率仅48.3%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股MACD指标覆盖率仅48.3%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股BOLL指标覆盖率仅48.2%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股涨跌幅指标覆盖率仅48.3%",
-      "fix": "hk-indicators"
-    },
-    {
-      "level": "error",
-      "message": "港股同步任务异常(2026-05-16)",
+      "message": "港股537只活跃股缺失数据(2107/2644)",
       "fix": "hk-sync"
     },
     {

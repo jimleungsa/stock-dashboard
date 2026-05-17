@@ -67,10 +67,10 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
 <body>
 <div class="header">
     <h1>📊 <span>数据质量看板</span></h1>
-    <div class="meta">更新于 2026-05-17 10:27:49</div>
+    <div class="meta">更新于 2026-05-17 11:13:36</div>
 </div>
 <div class="alerts">
-<div class="alert error"><span class="icon">🔴</span><span class="msg">港股数据滞后3天(2026-05-14)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股534只活跃股缺失数据(2110/2644)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股MA5指标覆盖率仅48.3%</span><button class="fix-btn" onclick="copyFixCmd('hk-indicators')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股KDJ指标覆盖率仅48.3%</span><button class="fix-btn" onclick="copyFixCmd('hk-indicators')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股MACD指标覆盖率仅48.3%</span><button class="fix-btn" onclick="copyFixCmd('hk-indicators')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股BOLL指标覆盖率仅48.2%</span><button class="fix-btn" onclick="copyFixCmd('hk-indicators')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股涨跌幅指标覆盖率仅48.3%</span><button class="fix-btn" onclick="copyFixCmd('hk-indicators')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股同步任务异常(2026-05-16)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">A股数据滞后2天(2026-05-15)</span><button class="fix-btn" onclick="copyFixCmd('a-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">A股覆盖率仅94.3%(5201/5516)</span><button class="fix-btn" onclick="copyFixCmd('a-sync')">修复</button></div>
+<div class="alert error"><span class="icon">🔴</span><span class="msg">港股数据滞后2天(2026-05-15)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert error"><span class="icon">🔴</span><span class="msg">港股537只活跃股缺失数据(2107/2644)</span><button class="fix-btn" onclick="copyFixCmd('hk-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">A股数据滞后2天(2026-05-15)</span><button class="fix-btn" onclick="copyFixCmd('a-sync')">修复</button></div><div class="alert warning"><span class="icon">🟡</span><span class="msg">A股覆盖率仅94.3%(5201/5516)</span><button class="fix-btn" onclick="copyFixCmd('a-sync')">修复</button></div>
 </div>
 <div class="container">
     <div class="fix-panel">
@@ -80,20 +80,15 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
         </div>
         <div class="fix-body hidden" id="fBody">
 <div class="fix-card">
-            <div class="fc-title">📊 港股指标补算</div>
-            <div class="fc-desc">重算港股全部技术指标</div>
-            <button class="fc-btn" onclick="copyFixCmd('hk-indicators')">📋 复制命令</button>
-            <div class="fc-cmd" id="cmd-hk-indicators" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-indicators</div>
+            <div class="fc-title">🔄 港股同步</div>
+            <div class="fc-desc">用腾讯源补采今日缺失的港股日线</div>
+            <button class="fc-btn" onclick="copyFixCmd('hk-sync')">📋 复制命令</button>
+            <div class="fc-cmd" id="cmd-hk-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-sync</div>
         </div><div class="fix-card">
             <div class="fc-title">🔄 A股同步</div>
             <div class="fc-desc">运行盘后任务补全数据</div>
             <button class="fc-btn" onclick="copyFixCmd('a-sync')">📋 复制命令</button>
             <div class="fc-cmd" id="cmd-a-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix a-sync</div>
-        </div><div class="fix-card">
-            <div class="fc-title">🔄 港股同步</div>
-            <div class="fc-desc">用腾讯源补采今日缺失的港股日线</div>
-            <button class="fc-btn" onclick="copyFixCmd('hk-sync')">📋 复制命令</button>
-            <div class="fc-cmd" id="cmd-hk-sync" style="display:none;background:#0f1923;padding:4px 6px;border-radius:3px;font-size:9px;margin-top:4px;color:#8899aa;word-break:break-all">cd stock_project && python3 scripts/fix_data.py --fix hk-sync</div>
         </div>
         </div>
     </div>
@@ -117,13 +112,13 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
         <div class="card-header"><h2>🇭🇰 港股</h2><span class="badge error">异常</span></div>
         <div class="card-body">
             <div class="stats">
-                <div class="stat"><div class="val blue">2026-05-14</div><div class="lbl">最新日期</div></div>
-                <div class="stat"><div class="val green">2,110</div><div class="lbl">数据量</div></div>
-                <div class="stat"><div class="val green">79.8%</div><div class="lbl">覆盖率</div></div>
+                <div class="stat"><div class="val blue">2026-05-15</div><div class="lbl">最新日期</div></div>
+                <div class="stat"><div class="val green">2,107</div><div class="lbl">数据量</div></div>
+                <div class="stat"><div class="val green">79.7%</div><div class="lbl">覆盖率</div></div>
             </div>
             <table>
                 <tr><th>指标</th><th>覆盖</th><th>状态</th><th style="width:25%"></th></tr>
-<tr><td>MA5</td><td>1020/2110</td><td class="pct bad">48.3%</td><td><div class="pbar"><div class="fill red" style="width:48.3%"></div></div></td></tr><tr><td>KDJ</td><td>1020/2110</td><td class="pct bad">48.3%</td><td><div class="pbar"><div class="fill red" style="width:48.3%"></div></div></td></tr><tr><td>MACD</td><td>1020/2110</td><td class="pct bad">48.3%</td><td><div class="pbar"><div class="fill red" style="width:48.3%"></div></div></td></tr><tr><td>BOLL</td><td>1016/2110</td><td class="pct bad">48.2%</td><td><div class="pbar"><div class="fill red" style="width:48.2%"></div></div></td></tr><tr><td>涨跌幅</td><td>1020/2110</td><td class="pct bad">48.3%</td><td><div class="pbar"><div class="fill red" style="width:48.3%"></div></div></td></tr>
+<tr><td>MA5</td><td>2107/2107</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr><tr><td>KDJ</td><td>2107/2107</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr><tr><td>MACD</td><td>2107/2107</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr><tr><td>BOLL</td><td>2098/2107</td><td class="pct good">99.6%</td><td><div class="pbar"><div class="fill green" style="width:99.6%"></div></div></td></tr><tr><td>涨跌幅</td><td>2107/2107</td><td class="pct good">100.0%</td><td><div class="pbar"><div class="fill green" style="width:100.0%"></div></div></td></tr>
             </table>
         </div>
     </div>
@@ -134,7 +129,7 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
     </div>
     <div class="card">
         <div class="card-header"><h2>📈 港股趋势</h2></div>
-        <div class="card-body"><div class="chart"><div class="bar blue" style="height:65px" title="2026-04-30: 2427"><span>04-30</span></div><div class="bar blue" style="height:67px" title="2026-05-04: 2457"><span>05-04</span></div><div class="bar blue" style="height:80px" title="2026-05-05: 2597"><span>05-05</span></div><div class="bar blue" style="height:37px" title="2026-05-06: 2108"><span>05-06</span></div><div class="bar blue" style="height:37px" title="2026-05-07: 2108"><span>05-07</span></div><div class="bar blue" style="height:79px" title="2026-05-08: 2596"><span>05-08</span></div><div class="bar blue" style="height:37px" title="2026-05-11: 2113"><span>05-11</span></div><div class="bar blue" style="height:37px" title="2026-05-12: 2113"><span>05-12</span></div><div class="bar blue" style="height:37px" title="2026-05-13: 2109"><span>05-13</span></div><div class="bar blue" style="height:37px" title="2026-05-14: 2110"><span>05-14</span></div></div></div>
+        <div class="card-body"><div class="chart"><div class="bar blue" style="height:67px" title="2026-05-04: 2457"><span>05-04</span></div><div class="bar blue" style="height:80px" title="2026-05-05: 2597"><span>05-05</span></div><div class="bar blue" style="height:37px" title="2026-05-06: 2108"><span>05-06</span></div><div class="bar blue" style="height:37px" title="2026-05-07: 2108"><span>05-07</span></div><div class="bar blue" style="height:79px" title="2026-05-08: 2596"><span>05-08</span></div><div class="bar blue" style="height:37px" title="2026-05-11: 2113"><span>05-11</span></div><div class="bar blue" style="height:37px" title="2026-05-12: 2113"><span>05-12</span></div><div class="bar blue" style="height:37px" title="2026-05-13: 2109"><span>05-13</span></div><div class="bar blue" style="height:37px" title="2026-05-14: 2110"><span>05-14</span></div><div class="bar blue" style="height:36px" title="2026-05-15: 2107"><span>05-15</span></div></div></div>
     </div>
     <div class="card">
         <div class="card-header"><h2>🇭🇰 板块 & 指数</h2></div>
@@ -149,8 +144,8 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
     <div class="card">
         <div class="card-header"><h2>⚙️ 盘后任务</h2></div>
         <div class="card-body"><div class="jobs">
-    <div class="job"><div class="jt">🇨🇳 A股盘后</div><div class="jd">⏭️ 2026-05-16</div></div>
-    <div class="job"><div class="jt">🇭🇰 港股同步</div><div class="jd">❌ 2026-05-16</div></div></div></div>
+    <div class="job"><div class="jt">🇨🇳 A股盘后</div><div class="jd">✅ 2026-05-15</div></div>
+    <div class="job"><div class="jt">🇭🇰 港股同步</div><div class="jd">✅ 2026-05-15</div></div></div></div>
     </div>
     <div class="card">
         <div class="card-header"><h2>⚠️ A股最近失败</h2></div>
@@ -169,7 +164,7 @@ td{padding:5px 0;font-size:10px;border-bottom:1px solid #1a2530}
         </div>
     </div>
 </div>
-<div class="footer">数据质量看板 · 最后更新: 2026-05-17 10:27:49 · 点击修复按钮复制命令到终端执行</div>
+<div class="footer">数据质量看板 · 最后更新: 2026-05-17 11:13:36 · 点击修复按钮复制命令到终端执行</div>
 
 <script>
 function toggleFix(){
