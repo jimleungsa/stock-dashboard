@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-17 10:08:36",
+  "timestamp": "2026-05-17 10:23:54",
   "a_share": {
     "latest_date": "2026-05-15",
     "total_stocks": 5516,
@@ -161,7 +161,7 @@
   "after_market_jobs": {
     "a_share": {
       "date": "2026-05-16",
-      "status": "unknown",
+      "status": "skipped",
       "log_file": "after_market_20260516.log",
       "size_kb": 0.3
     },
